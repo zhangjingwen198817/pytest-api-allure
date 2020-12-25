@@ -1,7 +1,7 @@
-pds : http://app.lbuilder.cn
+pds : http://116.236.192.108:58888
 #youdu_users: "胡彪_张静文_李瑞霞_张迎盈_孙励_王烨权"
 youdu_users: "张静文"
 weixin_toparty: 2
-center:
-  username: civilapitest2020
-  password: 96e79218965eb72c92a549dd5a330112
+Gaolu:
+  username: lxl
+  password: 123456
