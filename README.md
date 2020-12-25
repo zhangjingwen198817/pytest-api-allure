@@ -136,7 +136,7 @@ luban-common 框架项目结构如下：
 
 现封装了三种消息格式，分别为 `文本`、`卡片`、`markdown`  消息，可针对不同场景使用对应消息，消息样式如下
 
-![image-20200826212734899](reports/image-20200826212734899.png)
+![image-20200826212734899](http://192.168.3.234/zhangjingwen/apitestgaolu/tree/master/picture/image-20200826212734899.png)
 
 
 
@@ -1277,7 +1277,7 @@ Global_Map().get('username','age')
 
 - `success_message` ： 成功时是否发送消息通知，默认为False
 
-- 默认使用 `pytest-html` 插件生成报告，生成在当前执行目录的 `reports/report.html` 中
+- 默认使用 `pytest-html` 插件生成报告，生成在当前执行目录的 `http://192.168.3.234/zhangjingwen/apitestgaolu/tree/master/picture/report.html` 中
 
 - 其它，指定了 `pytest` 的最低版本号为 `5.0` ，只到 `testcases`、 `testsuites` 下搜索用例
 
@@ -1424,7 +1424,7 @@ luban new CenterAutomation
 │   │	└─config.yaml
 │   └─globalConf.yaml
 ├─data
-├─reports
+├─http://192.168.3.234/zhangjingwen/apitestgaolu/tree/master/picture
 ├─swagger
 │   ├─__init__.py
 │   └─builder
@@ -1448,7 +1448,7 @@ luban new CenterAutomation
 [^config.yaml]: 默认生成4个环境的配置文件，对应 “开发”、“企业部署”、“预发布”、“正式”环境，可自己修改
 [^globalConf.yaml]: 全局配置文件，把不会随环境变化或固定的配置放这里，比如产品ID、请求头等
 [^data]: 存放测试数据的文件夹
-[^reports]: 默认测试报告存放文件夹
+[^http://192.168.3.234/zhangjingwen/apitestgaolu/tree/master/picture]: 默认测试报告存放文件夹
 [^swagger]: 通过 swagger 生成的接口方法存放在这里，每个项目一个子文件夹，`builder` 是一个演示项目，里面放的是相关接口
 [^testcases]: 测试用例文件夹，后面单接口用例都放这里面
 [^testsuites]: 测试集文件夹，test_center_demo.py 是一个测试的demo
@@ -1499,7 +1499,7 @@ luban new iworksweb
 
 在 CMD 中进入 `iworksweb` 项目的 `swagger` 目录，找到 swagger 接口地址，如下图
 
-![image](reports/image-20200901200704750.png)
+![image](http://192.168.3.234/zhangjingwen/apitestgaolu/tree/master/picture/image-20200901200704750.png)
 
 [^1]: 第1个是swagger地址
 [^2]: 第2个是swagger对应的json地址，这个地址就是我们需要的地址
@@ -1510,17 +1510,17 @@ luban new iworksweb
 luban swagger http://192.168.13.202:8081/Plan/rs/swagger/swagger.json
 ```
 
-![image](reports/image-20200903183221966.png)
+![image](http://192.168.3.234/zhangjingwen/apitestgaolu/tree/master/picture/image-20200903183221966.png)
 
 看到 `Successfully generate` 表示接口生成成功，我们用 pycharm 打开 `iworksweb` 项目，生成后的样子如下
 
-![image](reports/image-20200903183433540.png)
+![image](http://192.168.3.234/zhangjingwen/apitestgaolu/tree/master/picture/image-20200903183433540.png)
 
 [^plan]: 这是plan项目的名称是从swagger的url地址中获取，一般一个产品会调用多个swagger项目，所以正常情况下swagger目录下会有多个项目目录
 
 打开一个文件，看看生成的方法是什么样子，打开 `web_plan_scheduledPlanService.py` 文件，查看到 `addPlan` 方法如下
 
-![image](reports/image-20200901202429349.png)
+![image](http://192.168.3.234/zhangjingwen/apitestgaolu/tree/master/picture/image-20200901202429349.png)
 
 生成好的接口文件就可以直接在 case 中调用了，调用方式和程序的类和方法调用方式一样，没有区别.
 
@@ -1530,7 +1530,7 @@ luban swagger http://192.168.13.202:8081/Plan/rs/swagger/swagger.json
 
 进入 config 目录，由于现在演示的这个项目是企业部署项目，所以我们进入了 enterprise 目录，我复制了一个 yaml 配置文件，命名为 202_config.yaml ，修改后的配置内容如下
 
-![image](reports/image-20200901210924480.png)
+![image](http://192.168.3.234/zhangjingwen/apitestgaolu/tree/master/picture/image-20200901210924480.png)
 
 [^注意]: 账号和地址信息必须要按默认文件的方式，建议大家在不了解运行机制时，只修改登录地址、用户名、密码，不要调整格式，如果要信息，按已有样式添加即可
 
@@ -1540,7 +1540,7 @@ luban swagger http://192.168.13.202:8081/Plan/rs/swagger/swagger.json
 
 在 `iworksweb` 根目录找到 `pytest.ini` 文件，定位到 `--lb-env` 配置，把 `--lb-env` 配置修改为我们刚新建的 `Config/enterprise/202_config.yaml` 调整后的样子如下图
 
-![image](reports/image-20200901211726879.png)
+![image](http://192.168.3.234/zhangjingwen/apitestgaolu/tree/master/picture/image-20200901211726879.png)
 
 
 
@@ -1558,6 +1558,6 @@ luban swagger http://192.168.13.202:8081/Plan/rs/swagger/swagger.json
 
 一般情况不需要调整全局配置文件，由于之前没有把 iworksweb 的产品ID加进来，所以我们要加一下，进入 config 目录，找到 globalConf.yaml 配置文件，这是一个全局配置文件，把不变的配置都放在这里，比如产品ID，请求头信息等，加了一个 `iworksWebProductId: 192` 的配置，修改后的配置内容如下
 
-![image](reports/image-20200901212519261.png)
+![image](http://192.168.3.234/zhangjingwen/apitestgaolu/tree/master/picture/image-20200901212519261.png)
 
 [^注意]: 建议大家在不了解运行机制时，不要调整格式，如果要添加产品ID，按已有样式添加即可
