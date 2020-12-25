@@ -1,10 +1,7 @@
 pds : http://app.lbuilder.cn
-youdu_users: "胡彪"
+#youdu_users: "胡彪_张静文_李瑞霞_张迎盈_孙励_王烨权"
+youdu_users: "张静文"
 weixin_toparty: 2
 center:
-  username: lb91247
-  password: 264f0c676e143da03019f1698304c468
-iworksApp :
-  username : test
-  password : 96e79218965eb72c92a549dd5a325612
-  clientVersion: 1.9.0
+  username: civilapitest2020
+  password: 96e79218965eb72c92a549dd5a330112
