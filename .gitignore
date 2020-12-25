@@ -1,0 +1,17 @@
+__pycache__
+.DS_Store
+.cache
+.eggs
+.pytest_cache
+.vscode
+.idea
+.pypirc
+.venv
+.tox
+*/tmp/*
+*.egg-info
+*.pyc
+dist
+build
+logs
+reports
