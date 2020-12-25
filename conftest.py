@@ -17,6 +17,7 @@ from swagger.jump import Jump
 from utils.utils import file_absolute_path
 from py._xmlgen import html
 
+
 def pytest_addoption(parser):
     '''
     注册Pytest的命令行参数
@@ -41,6 +42,7 @@ def pytest_addoption(parser):
                     default=os.getenv("Pytest_Env", None),
                     help="set testing environment")
 
+
 def pytest_configure(config):
     '''
     在测试报告中添加环境信息
@@ -58,6 +60,7 @@ def pytest_configure(config):
         if baseUrl is not None:
             config._metadata['基础URL'] = baseUrl
 
+
 def pytest_report_header(config):
     '''
     向terminal打印custom环境信息
@@ -71,6 +74,7 @@ def pytest_report_header(config):
     if envConf:
         return f"browser: {browser}, baseUrl: {baseUrl}, configuration: {envConf}"
 
+
 @pytest.fixture(scope="session")
 def env_conf(pytestconfig):
     '''
@@ -81,7 +85,8 @@ def env_conf(pytestconfig):
     globalConf = pytestconfig.getini("globalConf")
     if envConf:
         if globalConf:
-            return {**yaml_file.get_yaml_data(file_absolute_path(envConf)), **yaml_file.get_yaml_data(file_absolute_path(globalConf))}
+            return {**yaml_file.get_yaml_data(file_absolute_path(envConf)),
+                    **yaml_file.get_yaml_data(file_absolute_path(globalConf))}
         return yaml_file.get_yaml_data(file_absolute_path(envConf))
     else:
         raise RuntimeError("Configuration --lb-env not found")
@@ -97,6 +102,7 @@ def base_url(pytestconfig):
     if base_url:
         return base_url
 
+
 @pytest.fixture(scope="session")
 def global_cache(request):
     '''
@@ -105,6 +111,7 @@ def global_cache(request):
     :return:
     '''
     return request.config.cache
+
 
 def pytest_terminal_summary(terminalreporter, exitstatus, config):
     '''收集测试结果并发送到对应IM'''
@@ -132,13 +139,16 @@ def pytest_terminal_summary(terminalreporter, exitstatus, config):
             if weixin_toparty:
                 send.send_message_textcard(title=f"警告！{JOB_NAME} 巡检出现异常", content=content, toparty=weixin_toparty)
             if youdu_users:
-                send_msg(title=f"警告！{JOB_NAME} 巡检出现异常", content=content, sendTo=youdu_users+"_FAIL", session=0, file=html_report)
+                send_msg(title=f"警告！{JOB_NAME} 巡检出现异常", content=content, sendTo=youdu_users + "_FAIL", session=0,
+                         file=html_report)
         elif success_message:
-            content = f"共执行 {total} 条用例，全部执行通过，耗时 {round(total_times,2)} 秒"
+            content = f"共执行 {total} 条用例，全部执行通过，耗时 {round(total_times, 2)} 秒"
             if weixin_toparty:
                 send.send_message_textcard(title=f"恭喜，{JOB_NAME} 巡检通过，请放心", content=content, toparty=weixin_toparty)
             if youdu_users:
-                send_msg(title=f"恭喜，{JOB_NAME} 巡检通过，请放心", content=content, sendTo=youdu_users+"_PASS", session=0, file=html_report)
+                send_msg(title=f"恭喜，{JOB_NAME} 巡检通过，请放心", content=content, sendTo=youdu_users + "_PASS", session=0,
+                         file=html_report)
+
 
 @pytest.fixture(scope="session")
 def bimadmin_login(env_conf, global_cache):
@@ -186,7 +196,8 @@ def iworks_app_cas(env_conf, global_cache):
     获取PDS登录凭证
     :return:
     '''
-    public_login.IworksApp(env_conf["iworksApp"]["username"], env_conf["iworksApp"]["password"], env_conf, global_cache).login()
+    public_login.IworksApp(env_conf["iworksApp"]["username"], env_conf["iworksApp"]["password"], env_conf,
+                           global_cache).login()
     yield
 
 
@@ -229,6 +240,7 @@ def pds_common(iworks_app_cas, env_conf, global_cache):
     PDSCommon = base_requests.Send(global_cache.get("pdscommon", False), env_conf, global_cache)
     yield PDSCommon
 
+
 @pytest.fixture(scope="session")
 def pds_doc(iworks_app_cas, env_conf, global_cache):
     '''
@@ -238,14 +250,17 @@ def pds_doc(iworks_app_cas, env_conf, global_cache):
     PDSDoc = base_requests.Send(global_cache.get("pdsdoc", False), env_conf, global_cache)
     yield PDSDoc
 
+
 @pytest.fixture(scope="session")
 def builder_common_business_data(iworks_app_cas, env_conf, global_cache):
     '''
     获取BusinessData登录凭证
     :return:
     '''
-    builderCommonBusinessData = base_requests.Send(global_cache.get("buildercommonbusinessdata", False), env_conf, global_cache)
+    builderCommonBusinessData = base_requests.Send(global_cache.get("buildercommonbusinessdata", False), env_conf,
+                                                   global_cache)
     yield builderCommonBusinessData
+
 
 @pytest.fixture(scope="session")
 def bimapp_login(env_conf, global_cache):
@@ -275,7 +290,8 @@ def bussiness_login(env_conf, global_cache):
     Bussiness 业务管理系统登录
     :return:
     '''
-    BussinessLogin = public_login.Bussiness(env_conf["Bussiness"]["username"], env_conf["Bussiness"]["password"], env_conf,
+    BussinessLogin = public_login.Bussiness(env_conf["Bussiness"]["username"], env_conf["Bussiness"]["password"],
+                                            env_conf,
                                             global_cache).login()
     yield BussinessLogin
 
@@ -286,7 +302,8 @@ def lubansoft_login(env_conf, global_cache):
     算量软件登录
     :return:
     '''
-    LubansoftLogin = public_login.LubanSoft(env_conf["lubansoft"]["username"], env_conf["lubansoft"]["password"], env_conf,
+    LubansoftLogin = public_login.LubanSoft(env_conf["lubansoft"]["username"], env_conf["lubansoft"]["password"],
+                                            env_conf,
                                             global_cache).login()
     yield LubansoftLogin
 
@@ -297,8 +314,10 @@ def iworks_web_cas(env_conf, global_cache):
     获取cas登录凭证
     :return:
     '''
-    public_login.IworksWeb(env_conf["iworksWeb"]["username"], env_conf["iworksWeb"]["password"], env_conf, global_cache).login()
+    public_login.IworksWeb(env_conf["iworksWeb"]["username"], env_conf["iworksWeb"]["password"], env_conf,
+                           global_cache).login()
     yield
+
 
 @pytest.fixture(scope="session")
 def iworks_web_common(iworks_web_cas, env_conf, global_cache):
@@ -308,8 +327,9 @@ def iworks_web_common(iworks_web_cas, env_conf, global_cache):
     '''
     resule = base_requests.Send(global_cache.get("pdscommon", False), env_conf, global_cache)
     # 处理第一次 302跳转接口不能是post、put、update接口,必须用get接口调用
-    Jump().jump(resule,resource='/rs/jump')
+    Jump().jump(resule, resource='/rs/jump')
     yield resule
+
 
 @pytest.fixture(scope="session")
 def iworks_web_process(iworks_web_cas, env_conf, global_cache):
@@ -319,8 +339,9 @@ def iworks_web_process(iworks_web_cas, env_conf, global_cache):
     '''
     resule = base_requests.Send(global_cache.get("LBprocess", False), env_conf, global_cache)
     # 处理第一次 302跳转接口不能是post、put、update接口,必须用get接口调用
-    Jump().jump(resule,resource='/process/jump')
+    Jump().jump(resule, resource='/process/jump')
     yield resule
+
 
 @pytest.fixture(scope="session")
 def iworks_web_businessdata(iworks_web_cas, env_conf, global_cache):
@@ -330,8 +351,9 @@ def iworks_web_businessdata(iworks_web_cas, env_conf, global_cache):
     '''
     resule = base_requests.Send(global_cache.get("BuilderCommonBusinessdata", False), env_conf, global_cache)
     # 处理第一次 302跳转接口不能是post、put、update接口,必须用get接口调用
-    Jump().jump(resule,resource='/jump')
+    Jump().jump(resule, resource='/jump')
     yield resule
+
 
 @pytest.fixture(scope="session")
 def iworks_web_plan(iworks_web_cas, env_conf, global_cache):
@@ -341,8 +363,9 @@ def iworks_web_plan(iworks_web_cas, env_conf, global_cache):
     '''
     resule = base_requests.Send(global_cache.get("LBSP", False), env_conf, global_cache)
     # 处理第一次 302跳转接口不能是post、put、update接口,必须用get接口调用
-    Jump().jump(resule,resource='/rs/jump')
+    Jump().jump(resule, resource='/rs/jump')
     yield resule
+
 
 @pytest.fixture(scope="session")
 def iworks_web_bimco(iworks_web_cas, env_conf, global_cache):
@@ -352,8 +375,9 @@ def iworks_web_bimco(iworks_web_cas, env_conf, global_cache):
     '''
     resule = base_requests.Send(global_cache.get("bimco", False), env_conf, global_cache)
     # 处理第一次 302跳转接口不能是post、put、update接口,必须用get接口调用
-    Jump().jump(resule,resource='/rs/co/jump')
+    Jump().jump(resule, resource='/rs/co/jump')
     yield resule
+
 
 @pytest.fixture(scope="session")
 def iworks_web_pdsdoc(iworks_web_cas, env_conf, global_cache):
@@ -363,8 +387,9 @@ def iworks_web_pdsdoc(iworks_web_cas, env_conf, global_cache):
     '''
     resule = base_requests.Send(global_cache.get("pdsdoc", False), env_conf, global_cache)
     # 处理第一次 302跳转接口不能是post、put、update接口,必须用get接口调用
-    Jump().jump(resule,resource='/rs/jump')
+    Jump().jump(resule, resource='/rs/jump')
     yield resule
+
 
 @pytest.fixture(scope="session")
 def token(env_conf, global_cache):
@@ -372,9 +397,11 @@ def token(env_conf, global_cache):
     获取登录凭证Token
     :return:
     '''
-    resule = public_login.Token(env_conf["iworksWeb"]["username"], env_conf["iworksWeb"]["password"], env_conf, global_cache)
-    yield  resule.login()
+    resule = public_login.Token(env_conf["iworksWeb"]["username"], env_conf["iworksWeb"]["password"], env_conf,
+                                global_cache)
+    yield resule.login()
     # resule.logout()
+
 
 @pytest.fixture(scope="session")
 def openapi_motor_token(token, env_conf, global_cache):
@@ -383,4 +410,14 @@ def openapi_motor_token(token, env_conf, global_cache):
     :return:
     '''
     resule = public_login.OpenApiMotorToken(token).login()
-    yield  resule
+    yield resule
+
+
+@pytest.fixture(scope="session")
+def gaolu_login(env_conf, global_cache):
+    '''
+    gaolu系统登录
+    '''
+    GaolLulogin = public_login.Gaolu(env_conf["Gaolu"]["username"], env_conf["Gaolu"]["password"], env_conf,
+                                     global_cache).login()
+    yield GaolLulogin
