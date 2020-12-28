@@ -75,7 +75,7 @@ class Process_template:
         return response
 
     @allure.step('新增或修改流程模版接口')
-    def saveOrUpdateProcessTemplateUsingPOST(self, item_fixture, nodeList=None, remark=None, sponsorType=None, sponsorUserList=None, lineList=None, id=None, sponsorRoleList=None, typeName=None):
+    def saveOrUpdateProcessTemplateUsingPOST(self, item_fixture, body):
         '''
         新增或修改流程模版接口
         :param item_fixture: item fixture,
@@ -89,7 +89,7 @@ class Process_template:
         :param typeName: 流程类型名称
         '''
         resource = f'/luban-glxx-user/process/template/save_or_update'
-        body = {'flowChart': {'lineList': lineList, 'nodeList': nodeList}, 'id': id, 'remark': remark, 'sponsorRoleList': sponsorRoleList, 'sponsorType': sponsorType, 'sponsorUserList': sponsorUserList, 'typeName': typeName}
+        # body = {'flowChart': {'lineList': lineList, 'nodeList': nodeList}, 'id': id, 'remark': remark, 'sponsorRoleList': sponsorRoleList, 'sponsorType': sponsorType, 'sponsorUserList': sponsorUserList, 'typeName': typeName}
         response = item_fixture.request('POST', resource, body)
         return response
 
