@@ -7,7 +7,7 @@
 import allure
 
 
-class User:
+class UserInfo:
     '''
     用户模块
     '''
