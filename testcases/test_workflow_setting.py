@@ -12,7 +12,7 @@ import pprint
 from luban_common.base_assert import Assertions
 from luban_common import base_utils
 import random
-from utils.common import waitForStatus, key_in_listdict
+from utils.common import waitForStatus, key_in_listdict, key_not_in_listdict
 
 
 @allure.feature("流程设置")
@@ -30,25 +30,17 @@ class TestLogin:
             name = resp.get('source_response')['data']['name']
             fullName = resp.get('source_response')['data']['fullName']
             username = resp.get('source_response')['data']['username']
-            # pprint.pprint(roleName)
-            # pprint.pprint(name)
-            # pprint.pprint(fullName)
-            # pprint.pprint(username)
         with allure.step('获取发起人角色信息: {0}'.format(roleName)):
             get_roleName = Roleandrole().findRolesUsingGET(gaolu_login, roleName)
             roleIdList = get_roleName.get('data_id')[0]
-            # pprint.pprint(roleIdList)
-            # pprint.pprint(get_roleName.get('data_rolename')[0])
             Assertions.assert_equal_value(get_roleName.get('data_rolename')[0], roleName)
         with allure.step('获取发起人用户信息: {0}'.format(fullName)):
             get_userName = Roleandrole().findUsersUsingGET(gaolu_login)
             userinfo_datas = get_userName.get('source_response')['data']
-            # pprint.pprint(get_userName.get('source_response')['data'])
             userIdList = None
             for data in userinfo_datas:
                 if data['truename'] == fullName:
                     userIdList = data['id']
-            # pprint.pprint(userIdList)
         with allure.step('新建流程: {0}'.format(new_flow)):
             second_id = str(random.randint(1, 4))
             third_id = str(random.randint(5, 9))
@@ -130,13 +122,12 @@ class TestLogin:
             for data in result_datas:
                 if data['typeName'] == new_flow:
                     processTemplateId = data['key']
-            pprint.pprint(processTemplateId)
         with allure.step('获取表单模板库id'):
             resp_id = Data_template().pageDataTemplateUsingGET(gaolu_login, pageSize=50, pageIndex=1)
             dict_form_id = {}
             for data in resp_id.get('source_response')['data']['result']:
                 dict_form_id[data['name']] = data['id']
-            print("\n现有表单模板: {0} 成功".format(dict_form_id))
+            print("现有表单模板: {0} 成功".format(dict_form_id))
         with allure.step('获取原有关联表单json'):
             list_body = []
             itemId = None
@@ -167,6 +158,14 @@ class TestLogin:
                 if data['name'] == env_conf['用例配置']['表单关联']:
                     Assertions.assert_equal_value(data['processTemplateId'], processTemplateId)
             print('关联流程:{0} 到表单: {1} 成功'.format(new_flow, env_conf['用例配置']['表单关联']))
+        with allure.step("删除流程"):
+            delete_resp = Process_template().deleteProcessTemplateUsingPOST(gaolu_login, processTemplateId)
+            waitForStatus(delete_resp, 200, 200, 15)
+        with allure.step('断言删除流程: {0} 成功'.format(new_flow)):
+            assert_delete = Process_template().pageProcessTemplateUsingGET(gaolu_login, page_size=10000, page_index=1)
+            result_delte = assert_delete.get('source_response')['data']['result']
+            key_not_in_listdict(result_delte, new_flow, 'typeName')
+            print("删除流程: {0} 成功".format(new_flow))
 
 
 if __name__ == '__main__':
