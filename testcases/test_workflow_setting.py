@@ -164,4 +164,4 @@ class TestLogin:
 
 
 if __name__ == '__main__':
-    pytest.main(["-s", "test_longin.py"])
+    pytest.main(["-s", "test_workflow_setting.py"])
