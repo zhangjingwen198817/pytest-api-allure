@@ -53,7 +53,7 @@ class Data_template:
         return response
 
     @allure.step('更新资料模版条目关联流程模版接口')
-    def updateDataTemplateItem2ProcessTemplateUsingPOST(self, item_fixture, templateCode=None, processTemplateId=None, itemId=None):
+    def updateDataTemplateItem2ProcessTemplateUsingPOST(self, item_fixture, body):
         '''
         更新资料模版条目关联流程模版接口
         :param item_fixture: item fixture,
@@ -63,7 +63,7 @@ class Data_template:
         :param templateCode: 模板库编码
         '''
         resource = f'/luban-glxx-user/data/template/item/update_processtemplate'
-        body = {'item2formTemplateItemIdList': [{'itemId': itemId, 'processTemplateId': processTemplateId}], 'templateCode': templateCode}
+        # body = {'item2formTemplateItemIdList': [{'itemId': itemId, 'processTemplateId': processTemplateId}], 'templateCode': templateCode}
         response = item_fixture.request('POST', resource, body)
         return response
 
