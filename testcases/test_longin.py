@@ -153,10 +153,10 @@ class TestLogin:
                     list_body.remove(data)
             list_body.append({"itemId": itemId,
                               "processTemplateId": processTemplateId})
+        with allure.step('关联表单'):
             templateCode = None
             for data in resp_temp.get('source_response')['data']['result']:
                 templateCode = data['templateCode']
-        with allure.step('关联表单'):
             body = {"item2formTemplateItemIdList": list_body,
                     "templateCode": templateCode}
             pprint.pprint(body)
