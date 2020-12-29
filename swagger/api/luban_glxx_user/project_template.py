@@ -64,7 +64,7 @@ class Project_template:
         return response
 
     @allure.step('添加工程模板接口')
-    def saveProjectTemplateUsingPOST(self, item_fixture, nameList=None, parentId=None):
+    def saveProjectTemplateUsingPOST(self, item_fixture, body):
         '''
         添加工程模板接口
         :param item_fixture: item fixture,
@@ -72,7 +72,7 @@ class Project_template:
         :param parentId: 父节点id，一级节点为0
         '''
         resource = f'/luban-glxx-user/project_template/save'
-        body = {'nameList': nameList, 'parentId': parentId}
+        # body = {'nameList': nameList, 'parentId': parentId}
         response = item_fixture.request('POST', resource, body)
         return response
 
