@@ -153,14 +153,20 @@ class TestLogin:
                     list_body.remove(data)
             list_body.append({"itemId": itemId,
                               "processTemplateId": processTemplateId})
-        with allure.step('关联表单'):
+        with allure.step('关联流程:{0} 到表单 {1}'.format(new_flow, env_conf['用例配置']['表单关联'])):
             templateCode = None
             for data in resp_temp.get('source_response')['data']['result']:
                 templateCode = data['templateCode']
             body = {"item2formTemplateItemIdList": list_body,
                     "templateCode": templateCode}
             post_resp = Data_template().updateDataTemplateItem2ProcessTemplateUsingPOST(gaolu_login, body)
-            waitForStatus(post_newCreat, 200, 200, 15)
+            waitForStatus(post_resp, 200, 200, 15)
+        with allure.step("断言关联表单成功"):
+            resp_result = Data_template().pageDataTemplateItemUsingGET(gaolu_login, page_size=10000, page_index=1)
+            for data in resp_result.get('source_response')['data']['result']:
+                if data['name'] == env_conf['用例配置']['表单关联']:
+                    Assertions.assert_equal_value(data['processTemplateId'], processTemplateId)
+            print('关联流程:{0} 到表单: {1} 成功'.format(new_flow, env_conf['用例配置']['表单关联']))
 
 
 if __name__ == '__main__':
