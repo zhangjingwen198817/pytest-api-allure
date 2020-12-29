@@ -18,7 +18,7 @@ from utils.common import waitForStatus, key_in_listdict
 @allure.feature("流程设置")
 class TestLogin:
     @allure.story("新建流程")
-    def test_login(self, gaolu_login):
+    def test_login(self, gaolu_login, env_conf):
         new_flow = "流程测试" + base_utils.generate_random_str()
         new_flow_mark = 'mark_' + new_flow
         new_flow_1 = "流程1_" + base_utils.generate_random_str()
@@ -119,8 +119,8 @@ class TestLogin:
                 "sponsorUserList": [],
                 "typeName": new_flow
             }
-        post_newCreat = Process_template().saveOrUpdateProcessTemplateUsingPOST(gaolu_login, body)
-        waitForStatus(post_newCreat, 200, 200, 15)
+            post_newCreat = Process_template().saveOrUpdateProcessTemplateUsingPOST(gaolu_login, body)
+            waitForStatus(post_newCreat, 200, 200, 15)
         with allure.step('断言新添加流程: {0} 成功'.format(new_flow)):
             assert_newCreat = Process_template().pageProcessTemplateUsingGET(gaolu_login, page_size=10000, page_index=1)
             result_datas = assert_newCreat.get('source_response')['data']['result']
@@ -145,7 +145,7 @@ class TestLogin:
                 if data['processTemplateId'] != '':
                     list_body.append({"itemId": data['id'],
                                       "processTemplateId": data['processTemplateId']})
-                if data['name'] == '测试表02 金属结构声屏障现场质量检查记录表(JL)':
+                if data['name'] == env_conf['用例配置']['表单关联']:
                     itemId = data['id']
         with allure.step('添加需要关联的表单到原有关联表单json'):
             for data in list_body:
@@ -159,7 +159,8 @@ class TestLogin:
                 templateCode = data['templateCode']
             body = {"item2formTemplateItemIdList": list_body,
                     "templateCode": templateCode}
-            pprint.pprint(body)
+            # pprint.pprint(body)
+            post_resp = Data_template().updateDataTemplateItem2ProcessTemplateUsingPOST(gaolu_login, body)
 
 
 if __name__ == '__main__':
