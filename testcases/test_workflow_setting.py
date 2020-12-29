@@ -159,8 +159,8 @@ class TestLogin:
                 templateCode = data['templateCode']
             body = {"item2formTemplateItemIdList": list_body,
                     "templateCode": templateCode}
-            # pprint.pprint(body)
             post_resp = Data_template().updateDataTemplateItem2ProcessTemplateUsingPOST(gaolu_login, body)
+            waitForStatus(post_newCreat, 200, 200, 15)
 
 
 if __name__ == '__main__':
