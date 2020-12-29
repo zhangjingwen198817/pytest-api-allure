@@ -5,3 +5,6 @@ weixin_toparty: 2
 Gaolu:
   username: lxl
   password: 123456
+
+用例配置:
+  表单关联: "测试表02 金属结构声屏障现场质量检查记录表(JL)"
