@@ -4,7 +4,6 @@
 # @Author  :  zhangjingwen
 # @File    :  test_longin
 import pytest, allure
-from swagger.api.login import Api_Login
 from swagger.api.inspection.inspection_userinfo import UserInfo
 from swagger.api.luban_glxx_user.roleAndRole import Roleandrole
 from swagger.api.luban_glxx_user.process_template import Process_template
@@ -146,9 +145,12 @@ class TestLogin:
                 if data['processTemplateId'] != '':
                     list_body.append({"itemId": data['id'],
                                       "processTemplateId": data['processTemplateId']})
-                if data['name'] != '':
+                if data['name'] == '测试表02 金属结构声屏障现场质量检查记录表(JL)':
                     itemId = data['id']
         with allure.step('添加需要关联的表单到原有关联表单json'):
+            for data in list_body:
+                if data['itemId'] == itemId:
+                    list_body.remove(data)
             list_body.append({"itemId": itemId,
                               "processTemplateId": processTemplateId})
             templateCode = None
