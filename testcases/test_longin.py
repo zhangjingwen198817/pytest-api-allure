@@ -17,7 +17,7 @@ from utils.common import waitForStatus, key_in_listdict
 
 @allure.feature("流程设置")
 class TestLogin:
-    @allure.story("新建流程")
+    @allure.story("新建流程-关联表单-删除流程")
     def test_login(self, gaolu_login, env_conf):
         new_flow = "流程测试" + base_utils.generate_random_str()
         new_flow_mark = 'mark_' + new_flow
