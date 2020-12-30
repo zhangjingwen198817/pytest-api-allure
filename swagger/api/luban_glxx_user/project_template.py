@@ -12,7 +12,7 @@ class Project_template:
     '''
 
     @allure.step('工程模板和资料模板条目绑定接口')
-    def bindDataTemplate2ProjectTemplateUsingPOST(self, item_fixture, projectTemplateId=None, dataTemplateItemId=None, type=None):
+    def bindDataTemplate2ProjectTemplateUsingPOST(self, item_fixture, body):
         '''
         工程模板和资料模板条目绑定接口
         :param item_fixture: item fixture,
@@ -22,7 +22,7 @@ class Project_template:
         :param projectTemplateId: 工程模板id
         '''
         resource = f'/luban-glxx-user/project_template/bind/dataTemplate_projectTemplate'
-        body = {'projectTemplateDataTemplates': [{'dataTemplateItemId': dataTemplateItemId, 'type': type}], 'projectTemplateId': projectTemplateId}
+        # body = {'projectTemplateDataTemplates': [{'dataTemplateItemId': dataTemplateItemId, 'type': type}], 'projectTemplateId': projectTemplateId}
         response = item_fixture.request('POST', resource, body)
         return response
 
