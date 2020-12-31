@@ -42,6 +42,26 @@ class FormGroup:
         response = item_fixture.request('post', resource, body)
         return response
 
+    @allure.step('删除表单分组')
+    def deleteFormGroupsDELETE(self, item_fixture, id):
+        '''
+        删除表单分组
+        :param item_fixture: item fixture,
+        '''
+        resource = f'/inspection/api/v1/formGroups/{id}'
+        response = item_fixture.request('delete', resource)
+        return response
+
+    @allure.step('上移下移表单')
+    def upDownFormPatch(self, item_fixture, id, body):
+        '''
+        上移下移表单
+        :param item_fixture: item fixture,
+        '''
+        resource = f'/inspection/api/v1/formGroups/{id}'
+        response = item_fixture.request('patch', resource, body)
+        return response
+
     @allure.step('查询可应用于的模板')
     def searchTemplatesGET(self, item_fixture, body, templateDbId=None, templateId=None):
         '''
