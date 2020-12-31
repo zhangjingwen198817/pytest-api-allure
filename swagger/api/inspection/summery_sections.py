@@ -13,14 +13,14 @@ class Sections:
     '''
 
     @allure.step('查询标段')
-    def sectionsGET(self, item_fixture):
+    def sectionsGET(self, item_fixture, body):
         '''
         查询标段
         :param item_fixture: item fixture,
         :param id:
         '''
         resource = f'/inspection/api/v1/sections'
-        response = item_fixture.request('get', resource)
+        response = item_fixture.request('get', resource, params=body)
         return response
 
     @allure.step('表单（总）数据统计（标段）')
@@ -40,7 +40,7 @@ class Sections:
         :param item_fixture: item fixture,
         '''
         resource = f'/inspection/api/v1/summary/bySection'
-        response = item_fixture.request('get', resource, body)
+        response = item_fixture.request('get', resource, params=body)
         return response
 
     @allure.step('项目概况')
@@ -51,4 +51,14 @@ class Sections:
         '''
         resource = f'/inspection/api/v1/summary/byUnit'
         response = item_fixture.request('get', resource, body)
+        return response
+
+    @allure.step('查询标段下信息')
+    def searchAll(self, item_fixture, body):
+        '''
+        项目概况
+        :param item_fixture: item fixture,
+        '''
+        resource = f'/inspection/api/v1/projectNodes/search/all'
+        response = item_fixture.request('get', resource, params=body)
         return response

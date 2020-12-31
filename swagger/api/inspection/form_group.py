@@ -39,7 +39,7 @@ class FormGroup:
         :param item_fixture: item fixture,
         '''
         resource = f'/inspection/api/v1/formGroups'
-        response = item_fixture.request('post', resource, params=body)
+        response = item_fixture.request('post', resource, body)
         return response
 
     @allure.step('查询可应用于的模板')

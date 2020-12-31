@@ -31,14 +31,14 @@ class FormInstances:
         response = item_fixture.request('GET', resource, params=body)
         return response
 
-    @allure.step('创建多实例表单')
-    def byFormGroupIdPOST(self, item_fixture, body):
+    @allure.step('添加表单')
+    def formInstancesPOST(self, item_fixture, body):
         '''
-        创建多实例表单
+        添加表单
         :param item_fixture: item fixture,
         '''
         resource = f'/inspection/api/v1/formInstances'
-        response = item_fixture.request('GET', resource, body)
+        response = item_fixture.request('post', resource, body)
         return response
 
     @allure.step('关联表单文件')
