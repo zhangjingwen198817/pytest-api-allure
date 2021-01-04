@@ -19,7 +19,7 @@ from swagger.api.inspection.sort import Sort
 
 
 @allure.feature("检验评定")
-class TestEngineerTemplate:
+class TestInspectionProvisions:
     @allure.story("新增表单-表单上移下移动-上传模板-应用模板-删除表单")
     def test_new_sheet(self, gaolu_login, env_conf):
         new_template_node1 = "工程划分测试" + base_utils.generate_random_str()
