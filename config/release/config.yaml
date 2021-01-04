@@ -1,9 +1,12 @@
 pds : http://116.236.192.108:58888
+#pds: http://jg.scgsdsj.com
+
 youdu_users: "张静文_李瑞霞_胡建东"
 #youdu_users: "张静文"
 weixin_toparty: 2
 Gaolu:
   username: lxl
+#  username: wyq_test
   password: 123456
 
 用例配置:
@@ -14,3 +17,10 @@ Gaolu:
       dataTemplateItemId3: "测试表4.5.2-1 加筋工程土工合成材料现场质量检验表(SG)"
       dataTemplateItemId4: "测试表4.5.2-2 隔离工程土工合成材料现场质量检验表(SG)"
       dataTemplateItemId5: "测试表4.5.2-3 过滤排水工程土工合成材料现场质量检验表(SG)"
+  增加表单:
+      section: "K2"
+      subItem: "K89+110～K88+923面层"
+      父表单: "测试表10.2.2 隧道总体现场质量检验表(JL)"
+      普通表单: "评定表11.3.2 交通标线分项工程质量检验评定表(SG)"
+      应用模板表单: "测试表02 金属结构声屏障现场质量检查记录表(JL)"
+
