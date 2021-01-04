@@ -32,3 +32,13 @@ class Sort:
         resource = f'/inspection/api/v1/formInstances/{id}'
         response = item_fixture.request('post', resource)
         return response
+
+    @allure.step(' 删除表单实例')
+    def formInstancesDELETE(self, item_fixture, id=None):
+        '''
+        删除表单实例
+        :param item_fixture: item fixture,
+        '''
+        resource = f'/inspection/api/v1/formInstances/{id}'
+        response = item_fixture.request('delete', resource)
+        return response

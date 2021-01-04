@@ -71,3 +71,23 @@ class FormGroup:
         resource = f'/inspection/api/v1/templateDbs/{templateDbId}/templates/{templateId}/to'
         response = item_fixture.request('post', resource, params=body)
         return response
+
+    @allure.step('查询可上传的模板')
+    def searchUpTemplatesGET(self, item_fixture, body):
+        '''
+        查询可上传的模板
+        :param item_fixture: item fixture,
+        '''
+        resource = f'/inspection/api/v1/stashes'
+        response = item_fixture.request('get', resource, params=body)
+        return response
+
+    @allure.step('上传模板')
+    def upTemplatesPUT(self, item_fixture, id, body1, body2):
+        '''
+        上传模板
+        :param item_fixture: item fixture,
+        '''
+        resource = f'/inspection/api/v1/stashes/{id}'
+        response = item_fixture.request('put', resource, body1, params=body2)
+        return response
