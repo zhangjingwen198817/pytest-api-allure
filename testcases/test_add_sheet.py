@@ -18,7 +18,7 @@ from swagger.api.inspection.formInstances import FormInstances
 from swagger.api.inspection.sort import Sort
 
 
-@allure.feature("检验评定")
+@allure.feature("检验评定-新增表单")
 class TestInspectionProvisions:
     @allure.story("新增表单-表单上移下移动-上传模板-应用模板-删除表单")
     def test_new_sheet(self, gaolu_login, env_conf):

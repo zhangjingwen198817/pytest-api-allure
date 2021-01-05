@@ -19,7 +19,7 @@ import re
 import os
 
 
-@allure.feature("检验评定")
+@allure.feature("检验评定-高级表单")
 class TestAdvancedForm:
     @allure.story("表单编辑-表单保存")
     def test_advance_form(self, gaolu_login, env_conf):
