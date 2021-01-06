@@ -17,7 +17,7 @@ from swagger.api.report.service_template import ServiceTemplate
 from swagger.api.inspection.content import Content
 import re
 import os
-
+from utils.utils import file_absolute_path
 
 @allure.feature("检验评定-高级表单")
 class TestAdvancedForm:
@@ -116,12 +116,12 @@ class TestAdvancedForm:
             submit_resp = ServiceTemplate().rbInstancePUT(env_conf, gaolu_login, edit_id, body)
             waitForStatus(submit_resp, 200, 200, 15)
             base_utils.file_is_exist(env_conf['用例配置']['高级表单']['文件路径'])
-            os.rename(env_conf['用例配置']['高级表单']['文件路径'], "../data/" + sheet_name + ".pdf")
+            os.rename(env_conf['用例配置']['高级表单']['文件路径'], "data/" + sheet_name + ".pdf")
             resp = Content().contentGET(gaolu_login, id)
         with allure.step("提交表单内容"):
             res = Content().contentPOST(gaolu_login, resp.get('source_response')['data']['id'],
-                                        "../data/" + sheet_name + ".pdf")
-            os.rename("../data/" + sheet_name + ".pdf", env_conf['用例配置']['高级表单']['文件路径'])
+                                        "data/" + sheet_name + ".pdf")
+            os.rename("data/" + sheet_name + ".pdf", env_conf['用例配置']['高级表单']['文件路径'])
             waitForStatus(res, 200, 200, 15)
         with allure.step("删除子表单"):
             delete_sheet3 = Sort().formInstancesDELETE(gaolu_login, id)
