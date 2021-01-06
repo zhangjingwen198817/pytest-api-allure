@@ -17,7 +17,6 @@ from swagger.api.report.service_template import ServiceTemplate
 from swagger.api.inspection.content import Content
 import re
 import os
-from utils.utils import file_absolute_path
 
 @allure.feature("检验评定-高级表单")
 class TestAdvancedForm:
@@ -47,7 +46,7 @@ class TestAdvancedForm:
                     template_id1 = data['formTemplateId']
                     template_db_id1 = data['templateCode']
         # 检验评定添加父表单
-        with allure.step('添加父表单'):
+        with allure.step('添加父表单: {0}'.format(env_conf['用例配置']['高级表单']['父表单'])):
             add_parent_sheet_body = {
                 "templateId": template_id1,
                 "projectNodeId": section_dict[env_conf['用例配置']['高级表单']['subItem']],
@@ -80,6 +79,7 @@ class TestAdvancedForm:
                           "formGroup": formGroup_resp_dict[env_conf['用例配置']['高级表单']['父表单']]}
             resp_child = FormInstances().formInstancesPOST(gaolu_login, sheet_body)
             waitForStatus(resp_child, 200, 200, 15)
+            print('添加子表单: {0} 成功'.format(sheet_name))
         with allure.step('获取子表单templateId'):
             sheet_result = {"classifier": "report",
                             "projection": "excerpt",
