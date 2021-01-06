@@ -1,5 +1,4 @@
 pds : http://116.236.192.108:58888
-#pds: http://jg.scgsdsj.com
 url_tmp: http://192.168.13.203:7500
 
 youdu_users: "胡彪_张静文_李瑞霞_胡建东"
@@ -7,7 +6,6 @@ youdu_users: "胡彪_张静文_李瑞霞_胡建东"
 weixin_toparty: 2
 Gaolu:
   username: lxl
-#  username: wyq_test
   password: 123456
 
 用例配置:
