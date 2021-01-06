@@ -4,8 +4,12 @@
 
 **不同测试环境需要更改一下参数：**
     
-    pds : http://116.236.192.108:58888  //测试环境地址
-    url_tmp: http://192.168.13.203:7500 //表单编辑服务地址
-    Gaolu:
-      username: lxl  //登陆用户名
-      password: 123456  //登陆密码
+    pytest.ini(真实环境)
+    [pytest]
+    addopts =
+        --lb-env=Config/enterprise/config.yaml
+
+    pytest.ini(测试环境)
+    [pytest]
+    addopts =
+        --lb-env=Config/release/config.yaml
