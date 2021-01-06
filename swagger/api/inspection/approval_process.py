@@ -32,10 +32,10 @@ class ApprovalProcess:
         response = item_fixture.request('POST', resource, body)
         return response
 
-    @allure.step('发起')
-    def candidatesPOST(self, item_fixture, body, formInstanceId=None):
+    @allure.step('发起审批')
+    def starApprovePOST(self, item_fixture, body, formInstanceId=None):
         '''
-        发起
+        发起审批
         :param item_fixture: item fixture,
         '''
         resource = f'/inspection/api/v1/formInstances/{formInstanceId}/start'
