@@ -310,6 +310,7 @@ class TestAdvancedForm:
             waitForStatus(delete_sheet1, 200, 200, 15)
 
     @allure.story("删除审批流程-删除前置条件数据")
+    @pytest.mark.skiprest
     def test_delete_work_flow(self, gaolu_login, env_conf):
         with allure.step("删除流程"):
             assert_newCreat = Process_template().pageProcessTemplateUsingGET(gaolu_login, page_size=10000, page_index=1)
