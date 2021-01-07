@@ -29,7 +29,7 @@ class TestAdvancedForm:
 
     @allure.story("添加无签名签章审批流程-前置条件")
     @pytest.mark.skiprest
-    def test_flow_setting(self, gaolu_login, env_conf):
+    def test_flow_setting_deploy(self, gaolu_login, env_conf):
         new_flow_mark = 'mark_' + new_flow
         new_flow_1 = "流程1_" + base_utils.generate_random_str()
         new_flow_2 = "流程2_" + base_utils.generate_random_str()
