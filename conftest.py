@@ -421,3 +421,19 @@ def gaolu_login(env_conf, global_cache):
     GaolLulogin = public_login.Gaolu(env_conf["Gaolu"]["username"], env_conf["Gaolu"]["password"], env_conf,
                                      global_cache).login()
     yield GaolLulogin
+
+
+def pytest_sessionstart(session):
+    session.failednames = set()
+
+
+def pytest_runtest_makereport(item, call):
+    markers = {marker.name for marker in item.iter_markers()}
+    if call.excinfo is not None and 'skiprest' in markers:
+        item.session.failednames.add(item.originalname)
+
+
+def pytest_runtest_setup(item):
+    markers = {marker.name for marker in item.iter_markers()}
+    if item.originalname in item.session.failednames and 'skiprest' in markers:
+        pytest.skip(item.name)
