@@ -169,7 +169,7 @@ class TestAdvancedForm:
                     Assertions.assert_equal_value(data['processTemplateId'], processTemplateId)
             print('关联流程:{0} 到表单: {1} 成功'.format(new_flow, env_conf['用例配置']['表单审批']['单个表单']['父表单']))
 
-    @allure.story("单个表单审批")
+    @allure.story("单个表单发起-审批-回退至上一步-回退至发起人-删除表单")
     @pytest.mark.skiprest
     def test_approve_single_form(self, gaolu_login, env_conf):
         with allure.step("查看标段"):
