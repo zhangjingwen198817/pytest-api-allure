@@ -89,23 +89,23 @@ class TestInspectionProvisions:
             for data in resp_temp.get('source_response')['data']['result']:
                 dic_temp[data['name']] = data['id']
         with allure.step(
-                "关联表单模板: {0} 到模板: {1}".format(new_template_node3, env_conf['用例配置']['工程模板']['dataTemplateItemId1'])):
+                "关联表单模板: {0} 到模板: {1}".format(new_template_node3, env_conf['用例配置']['增加表单']['应用模板表单'])):
             body1 = {
                 "projectTemplateDataTemplates":
-                    [{"dataTemplateItemId": dic_temp[env_conf['用例配置']['工程模板']['dataTemplateItemId1']],
+                    [{"dataTemplateItemId": dic_temp[env_conf['用例配置']['增加表单']['应用模板表单']],
                       "type": type_dic['开工报告']}],
                 "projectTemplateId": dict_name_id3[new_template_node3]
             }
             bind_resp = Project_template().bindDataTemplate2ProjectTemplateUsingPOST(gaolu_login, body1)
             waitForStatus(bind_resp, 200, 200, 15)
         with allure.step(
-                "关联表单模板: {0} 到模板: {1} 成功".format(new_template_node3, env_conf['用例配置']['工程模板']['dataTemplateItemId1'])):
+                "关联表单模板: {0} 到模板: {1} 成功".format(new_template_node3, env_conf['用例配置']['增加表单']['应用模板表单'])):
             check_table_resp5 = Project_template().pageProjectTemplateUsingGET(gaolu_login, pageSize=10000, pageIndex=1)
             actual_value = None
             for data in check_table_resp5.get('source_response')['data']['result']:
                 if data['name'] == new_template_node3:
                     actual_value = data['projectTemplateDataTemplateResponseList']
-            Assertions.assert_in_value(actual_value, env_conf['用例配置']['工程模板']['dataTemplateItemId1'])
+            Assertions.assert_in_value(actual_value, env_conf['用例配置']['增加表单']['应用模板表单'])
 
         # 新增表单
         with allure.step("查看标段"):
