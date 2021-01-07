@@ -4,18 +4,14 @@
 # @Author  :  zhangjingwen
 # @File    :  test_add_sheet.py
 import pytest, allure
-from utils.common import waitForStatus, key_in_listdict, key_not_in_listdict
+from utils.common import waitForStatus, return_section_dict
 from luban_common.base_assert import Assertions
 from luban_common import base_utils
-import random
-import pprint
 from swagger.api.luban_glxx_user.project_template import Project_template
 from swagger.api.luban_glxx_user.data_template import Data_template
-from swagger.api.inspection.form_group import FormGroup
-from swagger.api.inspection.projects import Projects
-from swagger.api.inspection.summery_sections import Sections
 from swagger.api.inspection.formInstances import FormInstances
 from swagger.api.inspection.sort import Sort
+from swagger.api.inspection.form_group import FormGroup
 
 
 @allure.feature("检验评定-新增表单")
@@ -109,22 +105,7 @@ class TestInspectionProvisions:
 
         # 新增表单
         with allure.step("查看标段"):
-            resp_id = Projects().projectsGET(gaolu_login)
-            project_id = resp_id.get('data__embedded_projectModels_id')
-            body = {"projectId": project_id}
-            resp = Sections().sectionsGET(gaolu_login, body)
-            biaoduan_resp = resp.get('source_response')['data']['_embedded']['sectionModels']
-            biaoduan_dict = {}
-            for data in biaoduan_resp:
-                biaoduan_dict[data['name']] = data['id']
-            body = {
-                "sectionId": biaoduan_dict[env_conf['用例配置']['增加表单']['section']],
-            }
-            resp = Sections().searchAll(gaolu_login, body)
-            unit_datas = resp.get('source_response')['data']['_embedded']['projectNodeModels']
-            section_dict = {}
-            for data in unit_datas:
-                section_dict[data['name']] = data['id']
+            section_dict = return_section_dict(gaolu_login, env_conf)
         with allure.step("获取资料模板条目列表"):
             resp_temp = Data_template().pageDataTemplateItemUsingGET(gaolu_login, page_size=10000, page_index=1)
             for data in resp_temp.get('source_response')['data']['result']:

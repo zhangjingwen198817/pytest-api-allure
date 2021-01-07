@@ -8,6 +8,9 @@ import time
 import allure
 import json
 from luban_common.base_assert import Assertions
+from swagger.api.inspection.form_group import FormGroup
+from swagger.api.inspection.projects import Projects
+from swagger.api.inspection.summery_sections import Sections
 
 
 @allure.step("循环等待状态码")
@@ -98,3 +101,54 @@ def key_not_in_listdict(data, value, index):
         assert False, '{0}列表不存在{1}'.format(data, value)
     else:
         assert True, '{0}列表存在{1}'.format(data, value)
+
+
+@allure.step("返回标段信息")
+def return_section_dict(item_fixture, env_conf):
+    resp_id = Projects().projectsGET(item_fixture)
+    project_id = resp_id.get('data__embedded_projectModels_id')
+    body = {"projectId": project_id}
+    resp = Sections().sectionsGET(item_fixture, body)
+    biaoduan_resp = resp.get('source_response')['data']['_embedded']['sectionModels']
+    biaoduan_dict = {}
+    for data in biaoduan_resp:
+        biaoduan_dict[data['name']] = data['id']
+    body = {
+        "sectionId": biaoduan_dict[env_conf['用例配置']['表单审批']['单个表单']['section']],
+    }
+    resp = Sections().searchAll(item_fixture, body)
+    unit_datas = resp.get('source_response')['data']['_embedded']['projectNodeModels']
+    section_dict = {}
+    for data in unit_datas:
+        section_dict[data['name']] = data['id']
+    return section_dict
+
+
+@allure.step("组装查看子表单信息的body")
+def return_InstanceSearchBody(item_fixture, section_dict, env_conf):
+    sheet_result = {"classifier": "report",
+                    "projection": "excerpt",
+                    "projectNodeId": section_dict[env_conf['用例配置']['表单审批']['单个表单']['subItem']]}
+    sheet_resp = FormGroup().formGroupsGET(item_fixture, sheet_result)
+    href = None
+    for data in sheet_resp.get('source_response')['data']['_embedded']['formGroups']:
+        if data['templateName'] == env_conf['用例配置']['表单审批']['单个表单']['父表单']:
+            href = data['_links']['formInstances']['href']
+    key_value = href.split('?')[1].split('=')[1].split('&')[0]
+    body = {
+        "formGroup": key_value,
+        "projection": "excerpt"
+    }
+    return body
+
+
+@allure.step("查看子表单信息的templateName")
+def return_TemplateName_Id(item_fixture, section_dict, env_conf):
+    sheet_result = {"classifier": "report",
+                    "projection": "excerpt",
+                    "projectNodeId": section_dict[env_conf['用例配置']['表单审批']['单个表单']['subItem']]}
+    sheet_resp = FormGroup().formGroupsGET(item_fixture, sheet_result)
+    templateName_id = {}
+    for data in sheet_resp.get('source_response')['data']['_embedded']['formGroups']:
+        templateName_id[data['templateName']] = data['id']
+    return templateName_id
