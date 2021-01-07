@@ -43,7 +43,7 @@ class ApprovalProcess:
         return response
 
     @allure.step('审批')
-    def passPOST(self, item_fixture, body, formInstanceId=None):
+    def passApprovePOST(self, item_fixture, body, formInstanceId=None):
         '''
         审批
         :param item_fixture: item fixture,
@@ -52,14 +52,24 @@ class ApprovalProcess:
         response = item_fixture.request('POST', resource, body)
         return response
 
-    @allure.step('查询可退回的步骤')
-    def passGET(self, item_fixture, body, formInstanceId=None):
+    @allure.step('查询可退回得步骤')
+    def returnApproveGET(self, item_fixture, formInstanceId=None):
         '''
-        查询可退回的步骤
+        查询可退回得步骤
         :param item_fixture: item fixture,
         '''
         resource = f'/inspection/api/v1/formInstances/{formInstanceId}/return'
-        response = item_fixture.request('GET', resource, body)
+        response = item_fixture.request('GET', resource)
+        return response
+
+    @allure.step('退回')
+    def returnApprovePOST(self, item_fixture, body, formInstanceId=None):
+        '''
+        退回
+        :param item_fixture: item fixture,
+        '''
+        resource = f'/inspection/api/v1/formInstances/{formInstanceId}/return'
+        response = item_fixture.request('POST', resource, body)
         return response
 
     @allure.step('查询审批日志')
