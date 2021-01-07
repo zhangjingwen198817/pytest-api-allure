@@ -13,14 +13,15 @@ from swagger.api.inspection.formInstances import FormInstances
 from swagger.api.inspection.sort import Sort
 from swagger.api.inspection.form_group import FormGroup
 
+new_template_node1 = "工程划分测试" + base_utils.generate_random_str()
+new_template_node2 = "工程划分测试" + base_utils.generate_random_str()
+new_template_node3 = "工程划分测试" + base_utils.generate_random_str()
 
 @allure.feature("检验评定-新增表单")
 class TestInspectionProvisions:
-    @allure.story("新增表单-表单上移下移动-上传模板-应用模板-删除表单")
-    def test_new_sheet(self, gaolu_login, env_conf):
-        new_template_node1 = "工程划分测试" + base_utils.generate_random_str()
-        new_template_node2 = "工程划分测试" + base_utils.generate_random_str()
-        new_template_node3 = "工程划分测试" + base_utils.generate_random_str()
+    @allure.story("添加工程模板划分-前置条件")
+    @pytest.mark.skiprest
+    def test_add_engineering_template_deploy(self, gaolu_login, env_conf):
         # 添加工程模板
         with allure.step("查询工程划分目录"):
             project_tree_resp = Project_template().pageProjectTemplateUsingGET(gaolu_login, pageSize=10000, pageIndex=1)
@@ -103,6 +104,9 @@ class TestInspectionProvisions:
                     actual_value = data['projectTemplateDataTemplateResponseList']
             Assertions.assert_in_value(actual_value, env_conf['用例配置']['增加表单']['应用模板表单'])
 
+    @allure.story("新增表单-表单上移下移动-上传模板-应用模板-删除表单")
+    @pytest.mark.skiprest
+    def test_new_sheet(self, gaolu_login, env_conf):
         # 新增表单
         with allure.step("查看标段"):
             section_dict = return_section_dict(gaolu_login, env_conf)
@@ -283,6 +287,13 @@ class TestInspectionProvisions:
                                                                templateName_id[env_conf['用例配置']['增加表单']['应用模板表单']])
             waitForStatus(delete_sheet3, 200, 200, 15)
 
+    @allure.story("删除工程模板划分-清理前置条件")
+    def test_delete_engineering_template(self, gaolu_login, env_conf):
+        check_tree_resp2 = Project_template().pageProjectTemplateUsingGET(gaolu_login, pageSize=10000, pageIndex=1)
+        node_datas = check_tree_resp2.get('source_response')['data']['result']
+        dict_name_id3 = {}
+        for data in node_datas:
+            dict_name_id3[data['name']] = data['id']
         # 删除工程模板节点
         with allure.step("删除工程划分三级节点"):
             delete_project3 = Project_template().deleteProjectTemplateUsingDELETE(gaolu_login,
