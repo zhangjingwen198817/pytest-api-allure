@@ -1,8 +1,8 @@
 pds: http://116.236.192.108:58888
 url_tmp: http://192.168.13.203:7500
 
-youdu_users: "胡彪_张静文_李瑞霞_胡建东"
-#youdu_users: "张静文"
+#youdu_users: "胡彪_张静文_李瑞霞_胡建东"
+youdu_users: "张静文"
 weixin_toparty: 2
 Gaolu:
   username: lxl
