@@ -11,6 +11,7 @@ from luban_common.base_assert import Assertions
 from swagger.api.inspection.form_group import FormGroup
 from swagger.api.inspection.projects import Projects
 from swagger.api.inspection.summery_sections import Sections
+import pprint
 
 
 @allure.step("循环等待状态码")
@@ -142,6 +143,26 @@ def return_InstanceSearchBody(item_fixture, section_dict, env_conf):
     return body
 
 
+@allure.step("返回组装子表单信息的body")
+def return_InstanceBody(item_fixture, section_dict, node, group_id,):
+    # section_dict[env_conf['用例配置']['表单审批']['单个表单']['subItem']
+    sheet_result = {"classifier": "report",
+                    "projection": "excerpt",
+                    "projectNodeId": section_dict[node]}
+    sheet_resp = FormGroup().formGroupsGET(item_fixture, sheet_result)
+    href = None
+    # pprint.pprint(group_id)
+    for data in sheet_resp.get('source_response')['data']['_embedded']['formGroups']:
+        if str(data['id']) == group_id:
+            href = data['_links']['formInstances']['href']
+    key_value = href.split('?')[1].split('=')[1].split('&')[0]
+    body = {
+        "formGroup": key_value,
+        "projection": "excerpt"
+    }
+    return body
+
+
 @allure.step("查看子表单信息的templateName")
 def return_TemplateName_Id(item_fixture, section_dict, env_conf):
     sheet_result = {"classifier": "report",
@@ -149,6 +170,8 @@ def return_TemplateName_Id(item_fixture, section_dict, env_conf):
                     "projectNodeId": section_dict[env_conf['用例配置']['表单审批']['单个表单']['subItem']]}
     sheet_resp = FormGroup().formGroupsGET(item_fixture, sheet_result)
     templateName_id = {}
-    for data in sheet_resp.get('source_response')['data']['_embedded']['formGroups']:
+    datas = sheet_resp.get('source_response')['data']['_embedded']['formGroups']
+    for data in datas:
         templateName_id[data['templateName']] = data['id']
+    pprint.pprint(datas)
     return templateName_id

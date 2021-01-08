@@ -12,10 +12,12 @@ from swagger.api.luban_glxx_user.data_template import Data_template
 from swagger.api.inspection.formInstances import FormInstances
 from swagger.api.inspection.sort import Sort
 from swagger.api.inspection.form_group import FormGroup
+from utils.common import return_InstanceBody
 
 new_template_node1 = "工程划分测试" + base_utils.generate_random_str()
 new_template_node2 = "工程划分测试" + base_utils.generate_random_str()
 new_template_node3 = "工程划分测试" + base_utils.generate_random_str()
+
 
 @allure.feature("检验评定-新增表单")
 class TestInspectionProvisions:
@@ -126,17 +128,20 @@ class TestInspectionProvisions:
                 "templateDbId": int(template_db_id2),
                 "classifier": "report"
             }
-            resp_add_sheet = FormGroup().addFormGroupsPOST(gaolu_login, add_sheet_body)
-            waitForStatus(resp_add_sheet, 200, 200, 15)
+            resp_add_normal_sheet = FormGroup().addFormGroupsPOST(gaolu_login, add_sheet_body)
+            waitForStatus(resp_add_normal_sheet, 200, 200, 15)
+            href_formGroup = resp_add_normal_sheet.get('response_header')['Location']
+            formGroup_normal_id = href_formGroup.split('/')[-1]
         with allure.step("断言添加普通表单: {0} 成功".format(env_conf['用例配置']['增加表单']['普通表单'])):
             add_sheet_result = {"classifier": "report",
                                 "projection": "excerpt",
                                 "projectNodeId": section_dict[env_conf['用例配置']['增加表单']['subItem']]}
-            up_down_resp = FormGroup().formGroupsGET(gaolu_login, add_sheet_result)
-            name_id_dict = {}
-            for data in up_down_resp.get('source_response')['data']['_embedded']['formGroups']:
-                name_id_dict[data['templateName']] = data['id']
-            Assertions.assert_in_key(name_id_dict, env_conf['用例配置']['增加表单']['普通表单'])
+            normal_group_resp = FormGroup().formGroupsGET(gaolu_login, add_sheet_result)
+            id_normal_templateName_dict = {}
+            for data in normal_group_resp.get('source_response')['data']['_embedded']['formGroups']:
+                id_normal_templateName_dict[str(data['id'])] = data['templateName']
+            Assertions.assert_equal_value(id_normal_templateName_dict[formGroup_normal_id],
+                                          env_conf['用例配置']['增加表单']['普通表单'])
         # 检验评定添加父表单
         with allure.step('添加父表单'):
             add_parent_sheet_body = {
@@ -147,15 +152,17 @@ class TestInspectionProvisions:
             }
             resp_add_parent_sheet = FormGroup().addFormGroupsPOST(gaolu_login, add_parent_sheet_body)
             waitForStatus(resp_add_parent_sheet, 200, 200, 15)
+            href_formGroup = resp_add_parent_sheet.get('response_header')['Location']
+            formGroup_id = href_formGroup.split('/')[-1]
         with allure.step("断言添加父表单: {0} 成功".format(env_conf['用例配置']['增加表单']['父表单'])):
             add_sheet_result = {"classifier": "report",
                                 "projection": "excerpt",
                                 "projectNodeId": section_dict[env_conf['用例配置']['增加表单']['subItem']]}
-            up_down_resp = FormGroup().formGroupsGET(gaolu_login, add_sheet_result)
-            name_id_dict = {}
-            for data in up_down_resp.get('source_response')['data']['_embedded']['formGroups']:
-                name_id_dict[data['templateName']] = data['id']
-            Assertions.assert_in_key(name_id_dict, env_conf['用例配置']['增加表单']['父表单'])
+            group_resp = FormGroup().formGroupsGET(gaolu_login, add_sheet_result)
+            id_templateName_dict = {}
+            for data in group_resp.get('source_response')['data']['_embedded']['formGroups']:
+                id_templateName_dict[str(data['id'])] = data['templateName']
+            Assertions.assert_equal_value(id_templateName_dict[formGroup_id], env_conf['用例配置']['增加表单']['父表单'])
         with allure.step('添加子表单'):
             body = {"classifier": "report",
                     "projection": "excerpt",
@@ -163,14 +170,15 @@ class TestInspectionProvisions:
             formGroup_resp_dict = {}
             formGroup_resp = FormGroup().formGroupsGET(gaolu_login, body)
             for data in formGroup_resp.get('source_response')['data']['_embedded']['formGroups']:
-                formGroup_resp_dict[data['templateName']] = data['_links']['self']['href']
+                formGroup_resp_dict[str(data['id'])] = data['_links']['self']['href']
 
             sheet_name = "测试表单" + base_utils.generate_random_str()
             sheet_body = {"name": sheet_name,
                           "toFormInstance": "",
-                          "formGroup": formGroup_resp_dict[env_conf['用例配置']['增加表单']['父表单']]}
+                          "formGroup": formGroup_resp_dict[formGroup_id]}
             resp_child = FormInstances().formInstancesPOST(gaolu_login, sheet_body)
             waitForStatus(resp_child, 200, 200, 15)
+            print('添加子表单: {0} 成功'.format(sheet_name))
         # 表单上移
         with allure.step("上移表单"):
             up_down_body = {"classifier": "report",
@@ -221,8 +229,10 @@ class TestInspectionProvisions:
                 "templateDbId": int(template_db_id3),
                 "classifier": "report"
             }
-            resp_add_parent_sheet = FormGroup().addFormGroupsPOST(gaolu_login, add_use_sheet_body)
-            waitForStatus(resp_add_parent_sheet, 200, 200, 15)
+            resp_apply_template = FormGroup().addFormGroupsPOST(gaolu_login, add_use_sheet_body)
+            waitForStatus(resp_apply_template, 200, 200, 15)
+            href_template = resp_apply_template.get('response_header')['Location']
+            template_id = href_template.split('/')[-1]
         with allure.step("断言应用模板: {0} 成功".format(env_conf['用例配置']['增加表单']['应用模板表单'])):
             add_sheet_result = {"classifier": "report",
                                 "projection": "excerpt",
@@ -252,21 +262,8 @@ class TestInspectionProvisions:
             waitForStatus(resp, 200, 200, 15)
         # 删除表单
         with allure.step('删除子表单'):
-            delete_sheet_result = {"classifier": "report",
-                                   "projection": "excerpt",
-                                   "projectNodeId": section_dict[env_conf['用例配置']['增加表单']['subItem']]}
-            delete_resp = FormGroup().formGroupsGET(gaolu_login, delete_sheet_result)
-            href = None
-            templateName_id = {}
-            for data in delete_resp.get('source_response')['data']['_embedded']['formGroups']:
-                templateName_id[data['templateName']] = data['id']
-                if data['templateName'] == env_conf['用例配置']['增加表单']['父表单']:
-                    href = data['_links']['formInstances']['href']
-            key_value = href.split('?')[1].split('=')[1].split('&')[0]
-            body = {
-                "formGroup": key_value,
-                "projection": "excerpt"
-            }
+            node = env_conf['用例配置']['增加表单']['subItem']
+            body = return_InstanceBody(gaolu_login, section_dict, node, formGroup_id)
             res = FormInstances().formInstanceSearchGET(gaolu_login, body)
             delete_id = None
             for data in res.get('source_response')['data']['_embedded']['formInstances']:
@@ -275,16 +272,13 @@ class TestInspectionProvisions:
             delete_sheet3 = Sort().formInstancesDELETE(gaolu_login, delete_id)
             waitForStatus(delete_sheet3, 200, 200, 15)
         with allure.step('删除父表单'):
-            delete_sheet1 = FormGroup().deleteFormGroupsDELETE(gaolu_login,
-                                                               templateName_id[env_conf['用例配置']['增加表单']['父表单']])
+            delete_sheet1 = FormGroup().deleteFormGroupsDELETE(gaolu_login, formGroup_id)
             waitForStatus(delete_sheet1, 200, 200, 15)
         with allure.step('删除普通表单'):
-            delete_sheet2 = FormGroup().deleteFormGroupsDELETE(gaolu_login,
-                                                               templateName_id[env_conf['用例配置']['增加表单']['普通表单']])
+            delete_sheet2 = FormGroup().deleteFormGroupsDELETE(gaolu_login, formGroup_normal_id)
             waitForStatus(delete_sheet2, 200, 200, 15)
         with allure.step('删除应用模板表单'):
-            delete_sheet3 = FormGroup().deleteFormGroupsDELETE(gaolu_login,
-                                                               templateName_id[env_conf['用例配置']['增加表单']['应用模板表单']])
+            delete_sheet3 = FormGroup().deleteFormGroupsDELETE(gaolu_login, template_id)
             waitForStatus(delete_sheet3, 200, 200, 15)
 
     @allure.story("删除工程模板划分-清理前置条件")
