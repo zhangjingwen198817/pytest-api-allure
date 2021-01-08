@@ -125,24 +125,6 @@ def return_section_dict(item_fixture, env_conf):
     return section_dict
 
 
-@allure.step("组装查看子表单信息的body")
-def return_InstanceSearchBody(item_fixture, section_dict, env_conf):
-    sheet_result = {"classifier": "report",
-                    "projection": "excerpt",
-                    "projectNodeId": section_dict[env_conf['用例配置']['表单审批']['单个表单']['subItem']]}
-    sheet_resp = FormGroup().formGroupsGET(item_fixture, sheet_result)
-    href = None
-    for data in sheet_resp.get('source_response')['data']['_embedded']['formGroups']:
-        if data['templateName'] == env_conf['用例配置']['表单审批']['单个表单']['父表单']:
-            href = data['_links']['formInstances']['href']
-    key_value = href.split('?')[1].split('=')[1].split('&')[0]
-    body = {
-        "formGroup": key_value,
-        "projection": "excerpt"
-    }
-    return body
-
-
 @allure.step("返回组装子表单信息的body")
 def return_InstanceBody(item_fixture, section_dict, node, group_id,):
     # section_dict[env_conf['用例配置']['表单审批']['单个表单']['subItem']
@@ -151,7 +133,6 @@ def return_InstanceBody(item_fixture, section_dict, node, group_id,):
                     "projectNodeId": section_dict[node]}
     sheet_resp = FormGroup().formGroupsGET(item_fixture, sheet_result)
     href = None
-    # pprint.pprint(group_id)
     for data in sheet_resp.get('source_response')['data']['_embedded']['formGroups']:
         if str(data['id']) == group_id:
             href = data['_links']['formInstances']['href']
@@ -173,5 +154,4 @@ def return_TemplateName_Id(item_fixture, section_dict, env_conf):
     datas = sheet_resp.get('source_response')['data']['_embedded']['formGroups']
     for data in datas:
         templateName_id[data['templateName']] = data['id']
-    pprint.pprint(datas)
     return templateName_id
