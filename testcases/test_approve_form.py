@@ -255,7 +255,7 @@ class TestApproveForm:
             resp = Content().contentGET(gaolu_login, ids[sheet_name])
         with allure.step("提交表单内容"):
             res = Content().contentPOST(gaolu_login, resp.get('source_response')['data']['id'],
-                                        "data/" + sheet_name + ".pdf")
+                                        "data/" + sheet_name + ".pdf", 'application/pdf')
             os.rename("data/" + sheet_name + ".pdf", env_conf['用例配置']['表单审批']['单个表单']['文件路径'])
             waitForStatus(res, 200, 200, 15)
         with allure.step("发起审批"):
@@ -411,7 +411,7 @@ class TestApproveForm:
             resp1 = Content().contentGET(gaolu_login, ids[sheet_name1])
         with allure.step("提交表单1内容"):
             res1 = Content().contentPOST(gaolu_login, resp1.get('source_response')['data']['id'],
-                                         "data/" + sheet_name1 + ".pdf")
+                                         "data/" + sheet_name1 + ".pdf", 'application/pdf')
             waitForStatus(res1, 200, 200, 15)
             os.rename("data/" + sheet_name1 + ".pdf", env_conf['用例配置']['表单审批']['批量表单']['文件路径'])
         with allure.step("获取提交表单id2"):
@@ -422,7 +422,7 @@ class TestApproveForm:
             resp2 = Content().contentGET(gaolu_login, ids[sheet_name2])
         with allure.step("提交表单2内容"):
             res2 = Content().contentPOST(gaolu_login, resp2.get('source_response')['data']['id'],
-                                         "data/" + sheet_name2 + ".pdf")
+                                         "data/" + sheet_name2 + ".pdf", 'application/pdf')
             waitForStatus(res2, 200, 200, 15)
             os.rename("data/" + sheet_name2 + ".pdf", env_conf['用例配置']['表单审批']['批量表单']['文件路径'])
         with allure.step("创建委托实例"):
@@ -509,7 +509,117 @@ class TestApproveForm:
     @allure.story("表单附件-上传-下载-删除")
     @pytest.mark.skiprest
     def test_attach_up_download_delete(self, gaolu_login, env_conf):
-        pass
+        with allure.step("查看标段"):
+            section_dict = return_section_dict(gaolu_login, env_conf)
+        with allure.step("获取资料模板条目列表"):
+            resp_temp = Data_template().pageDataTemplateItemUsingGET(gaolu_login, page_size=10000, page_index=1)
+            for data in resp_temp.get('source_response')['data']['result']:
+                if data['name'] == env_conf['用例配置']['表单审批']['表单附件']['父表单']:
+                    template_id1 = data['formTemplateId']
+                    template_db_id1 = data['templateCode']
+        with allure.step('获取roleName'):
+            resp = UserInfo().getUserInfoUsingGET(gaolu_login)
+            fullName = resp.get('source_response')['data']['fullName']
+        with allure.step('获取发起人用户信息: {0}'.format(fullName)):
+            get_userName = Roleandrole().findUsersUsingGET(gaolu_login)
+            userinfo_datas = get_userName.get('source_response')['data']
+            userIdList = None
+            for data in userinfo_datas:
+                if data['truename'] == fullName:
+                    userIdList = data['id']
+        # 检验评定添加父表单
+        with allure.step('添加父表单: {0}'.format(env_conf['用例配置']['表单审批']['表单附件']['父表单'])):
+            add_parent_sheet_body = {
+                "templateId": template_id1,
+                "projectNodeId": section_dict[env_conf['用例配置']['表单审批']['表单附件']['subItem']],
+                "templateDbId": int(template_db_id1),
+                "classifier": "report"
+            }
+            resp_add_parent_sheet = FormGroup().addFormGroupsPOST(gaolu_login, add_parent_sheet_body)
+            waitForStatus(resp_add_parent_sheet, 200, 200, 15)
+            href_formGroup = resp_add_parent_sheet.get('response_header')['Location']
+            formGroup_id = href_formGroup.split('/')[-1]
+        with allure.step("断言添加父表单: {0} 成功".format(env_conf['用例配置']['表单审批']['表单附件']['父表单'])):
+            add_sheet_result = {"classifier": "report",
+                                "projection": "excerpt",
+                                "projectNodeId": section_dict[env_conf['用例配置']['表单审批']['表单附件']['subItem']]}
+            group_resp = FormGroup().formGroupsGET(gaolu_login, add_sheet_result)
+            id_templateName_dict = {}
+            for data in group_resp.get('source_response')['data']['_embedded']['formGroups']:
+                id_templateName_dict[str(data['id'])] = data['templateName']
+            Assertions.assert_equal_value(id_templateName_dict[formGroup_id], env_conf['用例配置']['表单审批']['表单附件']['父表单'])
+        with allure.step('添加子表单'):
+            body = {"classifier": "report",
+                    "projection": "excerpt",
+                    "projectNodeId": section_dict[env_conf['用例配置']['表单审批']['表单附件']['subItem']]}
+            formGroup_resp_dict = {}
+            formGroup_resp = FormGroup().formGroupsGET(gaolu_login, body)
+            for data in formGroup_resp.get('source_response')['data']['_embedded']['formGroups']:
+                formGroup_resp_dict[str(data['id'])] = data['_links']['self']['href']
+            sheet_name = "测试表单" + base_utils.generate_random_str()
+            sheet_body = {"name": sheet_name,
+                          "toFormInstance": "",
+                          "formGroup": formGroup_resp_dict[formGroup_id]}
+            resp_child = FormInstances().formInstancesPOST(gaolu_login, sheet_body)
+            waitForStatus(resp_child, 200, 200, 15)
+            print('添加子表单: {0} 成功'.format(sheet_name))
+        with allure.step('获取子表单templateId'):
+            node = env_conf['用例配置']['表单审批']['表单附件']['subItem']
+            body = return_InstanceBody(gaolu_login, section_dict, node, formGroup_id)
+            res = FormInstances().formInstanceSearchGET(gaolu_login, body)
+            templateId_ids = {}
+            ids = {}
+            edit_hrefs = {}
+            for data in res.get('source_response')['data']['_embedded']['formInstances']:
+                if data['name'] == sheet_name:
+                    templateId_ids[data['name']] = data['templateId']
+                    ids[data['name']] = data['id']
+                    edit_hrefs[data['name']] = data['_links']['edit']['href']
+        with allure.step("获取表单内容"):
+            pattern = re.compile(r'[?]id=[A-Za-z0-9]{1,}')
+            result = pattern.findall(edit_hrefs[sheet_name])
+            edit_id = result[0].split('=')[1]
+            ServiceTemplate().rbTemplateGET(env_conf, gaolu_login, templateId_ids[sheet_name])
+            content_resp = ServiceTemplate().rbInstanceGET(env_conf, gaolu_login, edit_id)
+            body = content_resp.get('source_response')['data']
+        with allure.step("获取提交表单id"):
+            submit_resp = ServiceTemplate().rbInstancePUT(env_conf, gaolu_login, edit_id, body)
+            waitForStatus(submit_resp, 200, 200, 15)
+            base_utils.file_is_exist(env_conf['用例配置']['表单审批']['表单附件']['文件路径'])
+            os.rename(env_conf['用例配置']['表单审批']['表单附件']['文件路径'], "data/" + sheet_name + ".pdf")
+            resp = Content().contentGET(gaolu_login, ids[sheet_name])
+        with allure.step("提交表单内容"):
+            res = Content().contentPOST(gaolu_login, resp.get('source_response')['data']['id'],
+                                        "data/" + sheet_name + ".pdf", 'application/pdf')
+            os.rename("data/" + sheet_name + ".pdf", env_conf['用例配置']['表单审批']['表单附件']['文件路径'])
+            waitForStatus(res, 200, 200, 15)
+        with allure.step("上传附件png"):
+            body = {"source": "upload"}
+            res_up = Content().documentsPOST(gaolu_login, body)
+            waitForStatus(res_up, 200, 200, 15)
+            href_formGroup = res_up.get('response_header')['Location']
+            get_id = href_formGroup.split('/')[-1]
+            res_id = Content().documentsGET(gaolu_login, get_id)
+            href = res_id.get('source_response')['data']['_links']['content']['href']
+            up_id = href.split('/')[-1]
+            res = Content().contentPOST(gaolu_login, up_id, env_conf['用例配置']['表单审批']['表单附件']['图片附件'], 'image/png')
+            waitForStatus(res, 200, 200, 15)
+            document_hef = res_id.get('source_response')['data']['_links']['document']['href']
+            res_bind = FormInstances().attachmentsPUT(gaolu_login, document_hef, ids[sheet_name], 'text')
+            waitForStatus(res_bind, 200, 200, 15)
+        with allure.step('下载附件png'):
+            down_resp = Content().downcontentGET(gaolu_login, up_id)
+            with open('data/down_png.png', 'wb') as code:
+                code.write(down_resp.get('Response_content'))
+        with allure.step('删除附件png'):
+            delete_bind = FormInstances().attachmentsPUT(gaolu_login, '', ids[sheet_name], 'text')
+            waitForStatus(delete_bind, 200, 200, 15)
+        with allure.step("删除子表单"):
+            delete_sheet = Sort().formInstancesDELETE(gaolu_login, ids[sheet_name])
+            waitForStatus(delete_sheet, 200, 200, 15)
+        with allure.step('删除父表单'):
+            delete_group_sheet = FormGroup().deleteFormGroupsDELETE(gaolu_login, formGroup_id)
+            waitForStatus(delete_group_sheet, 200, 200, 15)
 
     @allure.story("工序app-照片应用-照片删除")
     @pytest.mark.skiprest

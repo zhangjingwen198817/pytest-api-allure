@@ -109,7 +109,7 @@ class TestAdvancedForm:
             resp = Content().contentGET(gaolu_login, ids[sheet_name])
         with allure.step("提交表单内容"):
             res = Content().contentPOST(gaolu_login, resp.get('source_response')['data']['id'],
-                                        "data/" + sheet_name + ".pdf")
+                                        "data/" + sheet_name + ".pdf", 'application/pdf')
             os.rename("data/" + sheet_name + ".pdf", env_conf['用例配置']['高级表单']['文件路径'])
             waitForStatus(res, 200, 200, 15)
         with allure.step("删除子表单"):

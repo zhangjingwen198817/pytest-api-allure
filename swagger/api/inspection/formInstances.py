@@ -52,17 +52,20 @@ class FormInstances:
         return response
 
     @allure.step('关联附件')
-    def byFormGroupIdPOST(self, item_fixture, body, formInstanceId=None):
+    def attachmentsPUT(self, item_fixture, body, formInstanceId=None, type='text'):
         '''
         关联附件
         :param item_fixture: item fixture,
         '''
+        content_Type = None
+        if type == "text":
+            content_Type = {'Content-Type': 'text/uri-list'}
         resource = f'/inspection/api/v1/formInstances/{formInstanceId}/attachments'
-        response = item_fixture.request('PUT', resource, body)
+        response = item_fixture.request('PUT', resource, body, header=content_Type)
         return response
 
     @allure.step('修改表单名称')
-    def byFormGroupIdPOST(self, item_fixture, body, formInstanceId=None):
+    def modifyNamePATCH(self, item_fixture, body, formInstanceId=None):
         '''
         修改表单名称
         :param item_fixture: item fixture,
