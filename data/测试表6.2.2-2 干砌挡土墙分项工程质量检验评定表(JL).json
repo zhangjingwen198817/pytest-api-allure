@@ -1,0 +1,1050 @@
+{
+  "cell": {
+    "1": {
+      "cell_455": {
+        "id": "cell_455",
+        "typeInfo": "检验负责人："
+      },
+      "cell_456": {
+        "id": "cell_456",
+        "typeInfo": ""
+      },
+      "cell_457": {
+        "id": "cell_457",
+        "typeInfo": "记录："
+      },
+      "cell_458": {
+        "id": "cell_458",
+        "typeInfo": ""
+      },
+      "cell_459": {
+        "id": "cell_459",
+        "typeInfo": "复核："
+      },
+      "cell_460": {
+        "id": "cell_460",
+        "typeInfo": ""
+      },
+      "cell_461": {
+        "id": "cell_461",
+        "typeInfo": "年 月 日"
+      },
+      "cell_2417": {
+        "id": "cell_2417",
+        "typeInfo": ""
+      },
+      "cell_2418": {
+        "id": "cell_2418",
+        "typeInfo": ""
+      },
+      "cell_2419": {
+        "id": "cell_2419",
+        "typeInfo": ""
+      },
+      "cell_2420": {
+        "id": "cell_2420",
+        "typeInfo": ""
+      },
+      "cell_2421": {
+        "id": "cell_2421",
+        "typeInfo": ""
+      },
+      "cell_2422": {
+        "id": "cell_2422",
+        "typeInfo": ""
+      },
+      "cell_2423": {
+        "id": "cell_2423",
+        "typeInfo": ""
+      },
+      "cell_2424": {
+        "id": "cell_2424",
+        "typeInfo": ""
+      },
+      "cell_2425": {
+        "id": "cell_2425",
+        "typeInfo": ""
+      },
+      "cell_2426": {
+        "id": "cell_2426",
+        "typeInfo": ""
+      },
+      "cell_2427": {
+        "id": "cell_2427",
+        "typeInfo": ""
+      },
+      "cell_2428": {
+        "id": "cell_2428",
+        "typeInfo": ""
+      },
+      "cell_2429": {
+        "id": "cell_2429",
+        "typeInfo": ""
+      },
+      "cell_2430": {
+        "id": "cell_2430",
+        "typeInfo": ""
+      },
+      "cell_2431": {
+        "id": "cell_2431",
+        "typeInfo": ""
+      },
+      "cell_2432": {
+        "id": "cell_2432",
+        "typeInfo": ""
+      },
+      "cell_2433": {
+        "id": "cell_2433",
+        "typeInfo": ""
+      },
+      "cell_2434": {
+        "id": "cell_2434",
+        "typeInfo": ""
+      },
+      "cell_2435": {
+        "id": "cell_2435",
+        "typeInfo": ""
+      },
+      "cell_2519": {
+        "id": "cell_2519",
+        "typeInfo": "平均值、代表值"
+      },
+      "cell_2520": {
+        "id": "cell_2520",
+        "typeInfo": "合格率（%）"
+      },
+      "cell_2521": {
+        "id": "cell_2521",
+        "typeInfo": "合格判定"
+      },
+      "cell_2526": {
+        "id": "cell_2526",
+        "typeInfo": "L＞20m"
+      },
+      "cell_2540": {
+        "id": "cell_2540",
+        "typeInfo": {}
+      },
+      "cell_2541": {
+        "id": "cell_2541",
+        "typeInfo": {}
+      },
+      "cell_2542": {
+        "id": "cell_2542",
+        "typeInfo": ""
+      },
+      "cell_2547": {
+        "id": "cell_2547",
+        "typeInfo": "6m≤L≤20m"
+      },
+      "cell_2551": {
+        "id": "cell_2551",
+        "typeInfo": ""
+      },
+      "cell_2552": {
+        "id": "cell_2552",
+        "typeInfo": ""
+      },
+      "cell_2553": {
+        "id": "cell_2553",
+        "typeInfo": ""
+      },
+      "cell_2554": {
+        "id": "cell_2554",
+        "typeInfo": ""
+      },
+      "cell_2555": {
+        "id": "cell_2555",
+        "typeInfo": ""
+      },
+      "cell_2556": {
+        "id": "cell_2556",
+        "typeInfo": ""
+      },
+      "cell_2557": {
+        "id": "cell_2557",
+        "typeInfo": ""
+      },
+      "cell_2558": {
+        "id": "cell_2558",
+        "typeInfo": ""
+      },
+      "cell_2559": {
+        "id": "cell_2559",
+        "typeInfo": ""
+      },
+      "cell_2560": {
+        "id": "cell_2560",
+        "typeInfo": ""
+      },
+      "cell_2561": {
+        "id": "cell_2561",
+        "typeInfo": ""
+      },
+      "cell_2562": {
+        "id": "cell_2562",
+        "typeInfo": ""
+      },
+      "cell_2563": {
+        "id": "cell_2563",
+        "typeInfo": ""
+      },
+      "cell_2568": {
+        "id": "cell_2568",
+        "typeInfo": "L＜6m"
+      },
+      "cell_2572": {
+        "id": "cell_2572",
+        "typeInfo": ""
+      },
+      "cell_2573": {
+        "id": "cell_2573",
+        "typeInfo": ""
+      },
+      "cell_2574": {
+        "id": "cell_2574",
+        "typeInfo": ""
+      },
+      "cell_2575": {
+        "id": "cell_2575",
+        "typeInfo": ""
+      },
+      "cell_2576": {
+        "id": "cell_2576",
+        "typeInfo": ""
+      },
+      "cell_2577": {
+        "id": "cell_2577",
+        "typeInfo": ""
+      },
+      "cell_2578": {
+        "id": "cell_2578",
+        "typeInfo": ""
+      },
+      "cell_2579": {
+        "id": "cell_2579",
+        "typeInfo": ""
+      },
+      "cell_2580": {
+        "id": "cell_2580",
+        "typeInfo": ""
+      },
+      "cell_2581": {
+        "id": "cell_2581",
+        "typeInfo": ""
+      },
+      "cell_2582": {
+        "id": "cell_2582",
+        "typeInfo": ""
+      },
+      "cell_2583": {
+        "id": "cell_2583",
+        "typeInfo": ""
+      },
+      "cell_2584": {
+        "id": "cell_2584",
+        "typeInfo": ""
+      },
+      "cell_2586": {
+        "id": "cell_2586",
+        "typeInfo": "2Δ"
+      },
+      "cell_2593": {
+        "id": "cell_2593",
+        "typeInfo": ""
+      },
+      "cell_2594": {
+        "id": "cell_2594",
+        "typeInfo": ""
+      },
+      "cell_2595": {
+        "id": "cell_2595",
+        "typeInfo": ""
+      },
+      "cell_2596": {
+        "id": "cell_2596",
+        "typeInfo": ""
+      },
+      "cell_2597": {
+        "id": "cell_2597",
+        "typeInfo": ""
+      },
+      "cell_2598": {
+        "id": "cell_2598",
+        "typeInfo": ""
+      },
+      "cell_2599": {
+        "id": "cell_2599",
+        "typeInfo": ""
+      },
+      "cell_2600": {
+        "id": "cell_2600",
+        "typeInfo": ""
+      },
+      "cell_2601": {
+        "id": "cell_2601",
+        "typeInfo": ""
+      },
+      "cell_2602": {
+        "id": "cell_2602",
+        "typeInfo": ""
+      },
+      "cell_2603": {
+        "id": "cell_2603",
+        "typeInfo": ""
+      },
+      "cell_2604": {
+        "id": "cell_2604",
+        "typeInfo": ""
+      },
+      "cell_2605": {
+        "id": "cell_2605",
+        "typeInfo": ""
+      },
+      "cell_2607": {
+        "id": "cell_2607",
+        "typeInfo": "3Δ"
+      },
+      "cell_2614": {
+        "id": "cell_2614",
+        "typeInfo": ""
+      },
+      "cell_2615": {
+        "id": "cell_2615",
+        "typeInfo": ""
+      },
+      "cell_2616": {
+        "id": "cell_2616",
+        "typeInfo": ""
+      },
+      "cell_2617": {
+        "id": "cell_2617",
+        "typeInfo": ""
+      },
+      "cell_2618": {
+        "id": "cell_2618",
+        "typeInfo": ""
+      },
+      "cell_2619": {
+        "id": "cell_2619",
+        "typeInfo": ""
+      },
+      "cell_2620": {
+        "id": "cell_2620",
+        "typeInfo": ""
+      },
+      "cell_2621": {
+        "id": "cell_2621",
+        "typeInfo": ""
+      },
+      "cell_2622": {
+        "id": "cell_2622",
+        "typeInfo": ""
+      },
+      "cell_2623": {
+        "id": "cell_2623",
+        "typeInfo": ""
+      },
+      "cell_2624": {
+        "id": "cell_2624",
+        "typeInfo": ""
+      },
+      "cell_2625": {
+        "id": "cell_2625",
+        "typeInfo": ""
+      },
+      "cell_2626": {
+        "id": "cell_2626",
+        "typeInfo": ""
+      },
+      "cell_2628": {
+        "id": "cell_2628",
+        "typeInfo": "4"
+      },
+      "cell_2635": {
+        "id": "cell_2635",
+        "typeInfo": ""
+      },
+      "cell_2636": {
+        "id": "cell_2636",
+        "typeInfo": ""
+      },
+      "cell_2637": {
+        "id": "cell_2637",
+        "typeInfo": ""
+      },
+      "cell_2638": {
+        "id": "cell_2638",
+        "typeInfo": ""
+      },
+      "cell_2639": {
+        "id": "cell_2639",
+        "typeInfo": ""
+      },
+      "cell_2640": {
+        "id": "cell_2640",
+        "typeInfo": ""
+      },
+      "cell_2641": {
+        "id": "cell_2641",
+        "typeInfo": ""
+      },
+      "cell_2642": {
+        "id": "cell_2642",
+        "typeInfo": ""
+      },
+      "cell_2643": {
+        "id": "cell_2643",
+        "typeInfo": ""
+      },
+      "cell_2644": {
+        "id": "cell_2644",
+        "typeInfo": ""
+      },
+      "cell_2645": {
+        "id": "cell_2645",
+        "typeInfo": ""
+      },
+      "cell_2646": {
+        "id": "cell_2646",
+        "typeInfo": ""
+      },
+      "cell_2647": {
+        "id": "cell_2647",
+        "typeInfo": ""
+      },
+      "cell_2649": {
+        "id": "cell_2649",
+        "typeInfo": "5"
+      },
+      "cell_2656": {
+        "id": "cell_2656",
+        "typeInfo": ""
+      },
+      "cell_2657": {
+        "id": "cell_2657",
+        "typeInfo": ""
+      },
+      "cell_2658": {
+        "id": "cell_2658",
+        "typeInfo": ""
+      },
+      "cell_2659": {
+        "id": "cell_2659",
+        "typeInfo": ""
+      },
+      "cell_2660": {
+        "id": "cell_2660",
+        "typeInfo": ""
+      },
+      "cell_2661": {
+        "id": "cell_2661",
+        "typeInfo": ""
+      },
+      "cell_2662": {
+        "id": "cell_2662",
+        "typeInfo": ""
+      },
+      "cell_2663": {
+        "id": "cell_2663",
+        "typeInfo": ""
+      },
+      "cell_2664": {
+        "id": "cell_2664",
+        "typeInfo": ""
+      },
+      "cell_2665": {
+        "id": "cell_2665",
+        "typeInfo": ""
+      },
+      "cell_2666": {
+        "id": "cell_2666",
+        "typeInfo": ""
+      },
+      "cell_2667": {
+        "id": "cell_2667",
+        "typeInfo": ""
+      },
+      "cell_2668": {
+        "id": "cell_2668",
+        "typeInfo": ""
+      },
+      "cell_2670": {
+        "id": "cell_2670",
+        "typeInfo": "6"
+      },
+      "cell_2677": {
+        "id": "cell_2677",
+        "typeInfo": ""
+      },
+      "cell_2678": {
+        "id": "cell_2678",
+        "typeInfo": ""
+      },
+      "cell_2679": {
+        "id": "cell_2679",
+        "typeInfo": ""
+      },
+      "cell_2680": {
+        "id": "cell_2680",
+        "typeInfo": ""
+      },
+      "cell_2681": {
+        "id": "cell_2681",
+        "typeInfo": ""
+      },
+      "cell_2682": {
+        "id": "cell_2682",
+        "typeInfo": ""
+      },
+      "cell_2683": {
+        "id": "cell_2683",
+        "typeInfo": ""
+      },
+      "cell_2684": {
+        "id": "cell_2684",
+        "typeInfo": ""
+      },
+      "cell_2685": {
+        "id": "cell_2685",
+        "typeInfo": ""
+      },
+      "cell_2686": {
+        "id": "cell_2686",
+        "typeInfo": ""
+      },
+      "cell_2687": {
+        "id": "cell_2687",
+        "typeInfo": ""
+      },
+      "cell_2688": {
+        "id": "cell_2688",
+        "typeInfo": ""
+      },
+      "cell_2689": {
+        "id": "cell_2689",
+        "typeInfo": ""
+      },
+      "cell_2333": {
+        "id": "cell_2333",
+        "typeInfo": "   公路工程项目"
+      },
+      "cell_2436": {
+        "id": "cell_2436",
+        "typeInfo": "评定表8.3.2-1"
+      },
+      "cell_2802": {
+        "id": "cell_2802",
+        "typeInfo": "钢丝、钢绞线先张法分项工程质量检验评定表"
+      },
+      "cell_2803": {
+        "id": "cell_2803",
+        "typeInfo": "施工自检"
+      },
+      "cell_2481": {
+        "id": "cell_2481",
+        "typeInfo": "项次"
+      },
+      "cell_2482": {
+        "id": "cell_2482",
+        "typeInfo": "检查项目"
+      },
+      "cell_2485": {
+        "id": "cell_2485",
+        "typeInfo": "规定值或允许偏差"
+      },
+      "cell_2498": {
+        "id": "cell_2498",
+        "typeInfo": "质量评定"
+      },
+      "cell_2523": {
+        "id": "cell_2523",
+        "typeInfo": "1"
+      },
+      "cell_2524": {
+        "id": "cell_2524",
+        "typeInfo": "镦头钢丝同束长度相对差（mm）"
+      },
+      "cell_2587": {
+        "id": "cell_2587",
+        "typeInfo": "张拉应力值（MPa）"
+      },
+      "cell_2608": {
+        "id": "cell_2608",
+        "typeInfo": "张拉伸长率（%）"
+      },
+      "cell_2629": {
+        "id": "cell_2629",
+        "typeInfo": "同一构件内断丝根数不超过钢丝总数的百分数"
+      },
+      "cell_2650": {
+        "id": "cell_2650",
+        "typeInfo": "预应力筋张拉后在横断面上的坐标（mm）"
+      },
+      "cell_2671": {
+        "id": "cell_2671",
+        "typeInfo": "无黏结段长度（mm）"
+      },
+      "cell_2690": {
+        "id": "cell_2690",
+        "typeInfo": "外观质量"
+      },
+      "cell_2711": {
+        "id": "cell_2711",
+        "typeInfo": "工程质量等级评定"
+      },
+      "cell_2488": {
+        "id": "cell_2488",
+        "typeInfo": "实测值或实测偏差值"
+      },
+      "cell_2908": {
+        "id": "cell_2908",
+        "typeInfo": "1"
+      },
+      "cell_2909": {
+        "id": "cell_2909",
+        "typeInfo": "2"
+      },
+      "cell_2910": {
+        "id": "cell_2910",
+        "typeInfo": "3"
+      },
+      "cell_2911": {
+        "id": "cell_2911",
+        "typeInfo": "4"
+      },
+      "cell_2912": {
+        "id": "cell_2912",
+        "typeInfo": "5"
+      },
+      "cell_2913": {
+        "id": "cell_2913",
+        "typeInfo": "6"
+      },
+      "cell_2914": {
+        "id": "cell_2914",
+        "typeInfo": "7"
+      },
+      "cell_2915": {
+        "id": "cell_2915",
+        "typeInfo": "8"
+      },
+      "cell_2916": {
+        "id": "cell_2916",
+        "typeInfo": "9"
+      },
+      "cell_2917": {
+        "id": "cell_2917",
+        "typeInfo": "10"
+      },
+      "cell_2527": {
+        "id": "cell_2527",
+        "typeInfo": "≤L/5000及5"
+      },
+      "cell_2548": {
+        "id": "cell_2548",
+        "typeInfo": "≤L/3000及5"
+      },
+      "cell_2569": {
+        "id": "cell_2569",
+        "typeInfo": "≤2"
+      },
+      "cell_2590": {
+        "id": "cell_2590",
+        "typeInfo": "满足设计要求"
+      },
+      "cell_2611": {
+        "id": "cell_2611",
+        "typeInfo": "满足设计要求，设计未要求时±6%"
+      },
+      "cell_2632": {
+        "id": "cell_2632",
+        "typeInfo": "≤1%"
+      },
+      "cell_2653": {
+        "id": "cell_2653",
+        "typeInfo": "±5"
+      },
+      "cell_2674": {
+        "id": "cell_2674",
+        "typeInfo": "±10"
+      },
+      "cell_2480": {
+        "id": "cell_2480",
+        "typeInfo": "实测项目"
+      },
+      "cell_2438": {
+        "id": "cell_2438",
+        "typeInfo": "基本\n要求"
+      },
+      "cell_3014": {
+        "id": "cell_3014",
+        "typeInfo": false
+      },
+      "cell_3015": {
+        "id": "cell_3015",
+        "typeInfo": "1、预应力束中的钢丝、钢绞线顺直，未发现缠绕、扭结现象，表面无损伤。"
+      },
+      "cell_3016": {
+        "id": "cell_3016",
+        "typeInfo": false
+      },
+      "cell_3017": {
+        "id": "cell_3017",
+        "typeInfo": "2、单根钢绞线无断丝，单根钢筋无断筋或滑移。"
+      },
+      "cell_3018": {
+        "id": "cell_3018",
+        "typeInfo": false
+      },
+      "cell_3019": {
+        "id": "cell_3019",
+        "typeInfo": "3、同一截面预应力筋接头面积不超过预应力筋总面积的25%，接头质量符合施工技术规范的规定。"
+      },
+      "cell_3020": {
+        "id": "cell_3020",
+        "typeInfo": false
+      },
+      "cell_3021": {
+        "id": "cell_3021",
+        "typeInfo": "4、预应力筋张拉或放张时混凝土强度和龄期满足设计要求，按设计要求的张拉顺序进行操作。"
+      },
+      "cell_3022": {
+        "id": "cell_3022",
+        "typeInfo": false
+      },
+      "cell_3023": {
+        "id": "cell_3023",
+        "typeInfo": "5、预应力钢丝采用镦头锚时，镦头头型圆整，无斜歪或破裂现象。"
+      },
+      "cell_3024": {
+        "id": "cell_3024",
+        "typeInfo": false
+      },
+      "cell_3025": {
+        "id": "cell_3025",
+        "typeInfo": "6、管道安装牢固，接头密合，弯曲圆顺。锚垫板平面与孔道轴线垂直。"
+      },
+      "cell_3026": {
+        "id": "cell_3026",
+        "typeInfo": false
+      },
+      "cell_3027": {
+        "id": "cell_3027",
+        "typeInfo": "7、张拉设备配套标定和使用，未超过标定期限使用。"
+      },
+      "cell_3028": {
+        "id": "cell_3028",
+        "typeInfo": false
+      },
+      "cell_3029": {
+        "id": "cell_3029",
+        "typeInfo": "8、锚固后预应力筋采用机械切割，外露长度符合设计要求。"
+      },
+      "cell_3065": {
+        "id": "cell_3065",
+        "typeInfo": {
+          "isCheck": false
+        }
+      },
+      "cell_3067": {
+        "id": "cell_3067",
+        "typeInfo": {
+          "isCheck": false
+        }
+      },
+      "cell_3068": {
+        "id": "cell_3068",
+        "typeInfo": "2.预应力筋及管道线形未出现弯折。"
+      },
+      "cell_3069": {
+        "id": "cell_3069",
+        "typeInfo": {
+          "isCheck": false
+        }
+      },
+      "cell_3070": {
+        "id": "cell_3070",
+        "typeInfo": "3.预应力管道无破损、连接松脱。"
+      },
+      "cell_3134": {
+        "id": "cell_3134",
+        "typeInfo": "1.预应力筋无油污、超过20%表面积的锈迹，锚具、连接器表面无裂纹、油污、锈迹，外套管无裂纹、机械损伤"
+      },
+      "cell_2708": {
+        "id": "cell_2708",
+        "typeInfo": "齐全"
+      },
+      "cell_2729": {
+        "id": "cell_2729",
+        "typeInfo": ""
+      },
+      "cell_3198": {
+        "id": "cell_3198",
+        "typeInfo": "分项工程名称："
+      },
+      "cell_3199": {
+        "id": "cell_3199",
+        "typeInfo": {}
+      },
+      "cell_3200": {
+        "id": "cell_3200",
+        "typeInfo": "工程部位：（桩号、墩台号、孔号）"
+      },
+      "cell_3201": {
+        "id": "cell_3201",
+        "typeInfo": {}
+      },
+      "cell_3202": {
+        "id": "cell_3202",
+        "typeInfo": " 所属建设项目（合同段）： "
+      },
+      "cell_3203": {
+        "id": "cell_3203",
+        "typeInfo": {}
+      },
+      "cell_3222": {
+        "id": "cell_3222",
+        "typeInfo": "所属分部工程名称："
+      },
+      "cell_3223": {
+        "id": "cell_3223",
+        "typeInfo": {}
+      },
+      "cell_3224": {
+        "id": "cell_3224",
+        "typeInfo": "所属单位工程："
+      },
+      "cell_3225": {
+        "id": "cell_3225",
+        "typeInfo": {}
+      },
+      "cell_3226": {
+        "id": "cell_3226",
+        "typeInfo": "施工单位："
+      },
+      "cell_3227": {
+        "id": "cell_3227",
+        "typeInfo": {}
+      },
+      "cell_3228": {
+        "id": "cell_3228",
+        "typeInfo": "分项工程编号："
+      },
+      "cell_3229": {
+        "id": "cell_3229",
+        "typeInfo": {}
+      },
+      "cell_3252": {
+        "id": "cell_3252",
+        "typeInfo": "质检负责人："
+      },
+      "cell_3253": {
+        "id": "cell_3253",
+        "typeInfo": ""
+      },
+      "cell_3254": {
+        "id": "cell_3254",
+        "typeInfo": "检测："
+      },
+      "cell_3255": {
+        "id": "cell_3255",
+        "typeInfo": ""
+      },
+      "cell_3256": {
+        "id": "cell_3256",
+        "typeInfo": "记录："
+      },
+      "cell_3257": {
+        "id": "cell_3257",
+        "typeInfo": ""
+      },
+      "cell_3258": {
+        "id": "cell_3258",
+        "typeInfo": "复核："
+      },
+      "cell_3259": {
+        "id": "cell_3259",
+        "typeInfo": ""
+      },
+      "cell_3260": {
+        "id": "cell_3260",
+        "typeInfo": "年  月  日"
+      },
+      "cell_3135": {
+        "id": "cell_3135",
+        "typeInfo": "质量保证资料"
+      },
+      "cell_2725": {
+        "id": "cell_2725",
+        "typeInfo": "监理意见"
+      },
+      "cell_3318": {
+        "id": "cell_3318",
+        "typeInfo": {
+          "isCheck": false,
+          "exprId": "expr_3365",
+          "expr": "and(and(count(compact(合格判定))>0,every(?_val=\"合格\",compact(合格判定))),every(?_val,外观质量),质量保证资料=\"齐全\")",
+          "deps": []
+        }
+      },
+      "cell_3319": {
+        "id": "cell_3319",
+        "typeInfo": {
+          "isCheck": true
+        }
+      },
+      "cell_2530": {
+        "id": "cell_2530",
+        "typeInfo": {
+          "cellId": "cell_2530",
+          "textValue": "",
+          "typeValue": "实测值",
+          "planCount": 0,
+          "qualified": 0,
+          "showDataSource": false,
+          "evaluationDisplay": false
+        }
+      }
+    }
+  },
+  "var": {
+    "EvaluateQualified": [
+      true
+    ],
+    "分项名称": [
+      null
+    ],
+    "工程编号": [
+      null
+    ],
+    "合格checkbox": [
+      false
+    ],
+    "合格判定": [
+      [
+        ""
+      ],
+      [
+        ""
+      ],
+      [
+        ""
+      ],
+      [
+        ""
+      ],
+      [
+        ""
+      ],
+      [
+        ""
+      ],
+      [
+        ""
+      ],
+      [
+        ""
+      ]
+    ],
+    "外观质量": [
+      [
+        false
+      ],
+      [
+        false
+      ],
+      [
+        false
+      ]
+    ],
+    "质量保证资料": [
+      null
+    ]
+  },
+  "variable": {
+    "expr_3356": {
+      "id": "expr_3356",
+      "val": [
+        null
+      ]
+    },
+    "expr_3357": {
+      "id": "expr_3357",
+      "val": [
+        null
+      ]
+    },
+    "expr_3303": {
+      "id": "expr_3303",
+      "val": [
+        null
+      ]
+    },
+    "expr_3305": {
+      "id": "expr_3305",
+      "val": [
+        null
+      ]
+    },
+    "expr_3307": {
+      "id": "expr_3307",
+      "val": [
+        null
+      ]
+    },
+    "expr_3309": {
+      "id": "expr_3309",
+      "val": [
+        null
+      ]
+    },
+    "expr_3311": {
+      "id": "expr_3311",
+      "val": [
+        null
+      ]
+    },
+    "expr_3313": {
+      "id": "expr_3313",
+      "val": [
+        null
+      ]
+    },
+    "expr_3315": {
+      "id": "expr_3315",
+      "val": [
+        null
+      ]
+    },
+    "expr_3365": {
+      "id": "expr_3365",
+      "val": [
+        false
+      ]
+    }
+  },
+  "totalPage": {
+    "currentPage": 1,
+    "expr": "1",
+    "val": 1
+  },
+  "refTmplData": {
+    "tmpls": [
+      {
+        "id": "747858915647029248",
+        "name": "测试表6.2.2-1 浆砌挡土墙分项工程质量检验评定表(JL)",
+        "instances": [
+          "5f489dbb78705a7be01d0fed"
+        ]
+      }
+    ]
+  },
+  "guaranteeState": {
+    "level": "高速公路",
+    "type": "基层"
+  },
+  "cellExtendState": {
+    "1": {}
+  }
+}
