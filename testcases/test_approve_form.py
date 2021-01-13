@@ -175,7 +175,7 @@ class TestApproveForm:
     @pytest.mark.skiprest
     def test_approve_single_form(self, gaolu_login, env_conf):
         with allure.step("查看标段"):
-            section_dict = return_section_dict(gaolu_login, env_conf)
+            section_dict = return_section_dict(gaolu_login, env_conf['用例配置']['表单审批']['单个表单']['section'])
         with allure.step("获取资料模板条目列表"):
             resp_temp = Data_template().pageDataTemplateItemUsingGET(gaolu_login, page_size=10000, page_index=1)
             for data in resp_temp.get('source_response')['data']['result']:
@@ -318,7 +318,7 @@ class TestApproveForm:
     @pytest.mark.skiprest
     def test_approve_batch_form(self, gaolu_login, env_conf):
         with allure.step("查看标段"):
-            section_dict = return_section_dict(gaolu_login, env_conf)
+            section_dict = return_section_dict(gaolu_login, env_conf['用例配置']['表单审批']['批量表单']['section'])
         with allure.step("获取资料模板条目列表"):
             resp_temp = Data_template().pageDataTemplateItemUsingGET(gaolu_login, page_size=10000, page_index=1)
             for data in resp_temp.get('source_response')['data']['result']:
@@ -510,7 +510,7 @@ class TestApproveForm:
     @pytest.mark.skiprest
     def test_attach_up_download_delete(self, gaolu_login, env_conf):
         with allure.step("查看标段"):
-            section_dict = return_section_dict(gaolu_login, env_conf)
+            section_dict = return_section_dict(gaolu_login, env_conf['用例配置']['表单审批']['表单附件']['section'])
         with allure.step("获取资料模板条目列表"):
             resp_temp = Data_template().pageDataTemplateItemUsingGET(gaolu_login, page_size=10000, page_index=1)
             for data in resp_temp.get('source_response')['data']['result']:
