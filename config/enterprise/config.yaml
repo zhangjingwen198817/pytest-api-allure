@@ -45,3 +45,8 @@ Gaolu:
       文件路径: "data/高级表单.pdf"
       图片附件: "data/image-test.png"
       下载附件: "data/down_png.png"
+  主页:
+      section: "K2"
+      subItem: "K89+110~K88+923面层"
+      父表单: "测试表6.2.2-2 干砌挡土墙分项工程质量检验评定表(JL)"
+      文件路径: "../data/测试表6.2.2-2 干砌挡土墙分项工程质量检验评定表(JL).pdf"
