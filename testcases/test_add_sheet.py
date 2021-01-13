@@ -111,7 +111,7 @@ class TestInspectionProvisions:
     def test_new_sheet(self, gaolu_login, env_conf):
         # 新增表单
         with allure.step("查看标段"):
-            section_dict = return_section_dict(gaolu_login, env_conf)
+            section_dict = return_section_dict(gaolu_login, env_conf['用例配置']['增加表单']['section'])
         with allure.step("获取资料模板条目列表"):
             resp_temp = Data_template().pageDataTemplateItemUsingGET(gaolu_login, page_size=10000, page_index=1)
             for data in resp_temp.get('source_response')['data']['result']:
