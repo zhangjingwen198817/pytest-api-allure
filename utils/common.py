@@ -105,7 +105,7 @@ def key_not_in_listdict(data, value, index):
 
 
 @allure.step("返回标段信息")
-def return_section_dict(item_fixture, env_conf):
+def return_section_dict(item_fixture, env_conf_value):
     resp_id = Projects().projectsGET(item_fixture)
     project_id = resp_id.get('data__embedded_projectModels_id')
     body = {"projectId": project_id}
@@ -115,7 +115,7 @@ def return_section_dict(item_fixture, env_conf):
     for data in biaoduan_resp:
         biaoduan_dict[data['name']] = data['id']
     body = {
-        "sectionId": biaoduan_dict[env_conf['用例配置']['表单审批']['单个表单']['section']],
+        "sectionId": biaoduan_dict[env_conf_value],
     }
     resp = Sections().searchAll(item_fixture, body)
     unit_datas = resp.get('source_response')['data']['_embedded']['projectNodeModels']
@@ -126,9 +126,9 @@ def return_section_dict(item_fixture, env_conf):
 
 
 @allure.step("返回组装子表单信息的body")
-def return_InstanceBody(item_fixture, section_dict, node, group_id,):
+def return_InstanceBody(item_fixture, section_dict, node, group_id, classifier='report'):
     # section_dict[env_conf['用例配置']['表单审批']['单个表单']['subItem']
-    sheet_result = {"classifier": "report",
+    sheet_result = {"classifier": classifier,
                     "projection": "excerpt",
                     "projectNodeId": section_dict[node]}
     sheet_resp = FormGroup().formGroupsGET(item_fixture, sheet_result)
