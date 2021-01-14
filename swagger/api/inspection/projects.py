@@ -43,31 +43,3 @@ class Projects:
         response = item_fixture.request('get', resource)
         return response
 
-    @allure.step('新增任务')
-    def searchNewTasksGET(self, item_fixture, body):
-        '''
-        新增任务统计
-        :param item_fixture: item fixture,
-        '''
-        resource = f'/inspection/api/v1/formInstances/search/newTasks'
-        response = item_fixture.request('get', resource, body)
-        return response
-
-    @allure.step('待办任务')
-    def searchNewToDoGET(self, item_fixture, body):
-        '''
-        待办任务
-        :param item_fixture: item fixture,
-        '''
-        resource = f'/inspection/api/v1/formInstances/search/todo'
-        response = item_fixture.request('get', resource, body)
-
-    @allure.step('任务追踪')
-    def searchTraceGET(self, item_fixture, body):
-        '''
-        任务追踪
-        :param item_fixture: item fixture,
-        '''
-        resource = f'/inspection/api/v1/formInstances/search/trace'
-        response = item_fixture.request('get', resource, body)
-        return response
