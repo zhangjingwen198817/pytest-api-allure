@@ -360,7 +360,7 @@ class TestInspectionProvisions:
             edit_id = result[0].split('=')[1]
             ServiceTemplate().rbTemplateGET(env_conf, gaolu_login, templateId_ids[formGroup_id])
             ServiceTemplate().rbInstanceGET(env_conf, gaolu_login, edit_id)
-            with open('../data/测试表6.2.2-2 干砌挡土墙分项工程质量检验评定表(JL).json', 'r', encoding='utf8') as fp:
+            with open('data/测试表6.2.2-2 干砌挡土墙分项工程质量检验评定表(JL).json', 'r', encoding='utf8') as fp:
                 json_data = json.load(fp)
             body = {"id": edit_id,
                     "name": id_templateName_dict[formGroup_id],
