@@ -293,7 +293,7 @@ class TestInspectionProvisions:
 
     @allure.story("单个交工评定表单发起-审批-删除表单")
     @pytest.mark.skiprest
-    def test_completion_form(self, gaolu_login, gaolu_login_luban, env_conf):
+    def test_completion_form(self, gaolu_login, gaolu_login_luban, gaolu_login_report, env_conf):
         with allure.step("查看标段"):
             section_dict = return_section_dict(gaolu_login, env_conf['用例配置']['主页']['section'])
         with allure.step("获取资料模板条目列表"):
@@ -360,8 +360,8 @@ class TestInspectionProvisions:
             pattern = re.compile(r'[?]id=[A-Za-z0-9]{1,}')
             result = pattern.findall(edit_hrefs[formGroup_id])
             edit_id = result[0].split('=')[1]
-            ServiceTemplate().rbTemplateGET(env_conf, gaolu_login, templateId_ids[formGroup_id])
-            ServiceTemplate().rbInstanceGET(env_conf, gaolu_login, edit_id)
+            ServiceTemplate().rbTemplateGET(gaolu_login_report, templateId_ids[formGroup_id])
+            ServiceTemplate().rbInstanceGET(gaolu_login_report, edit_id)
             with open('data/测试表6.2.2-2 干砌挡土墙分项工程质量检验评定表(JL).json', 'r', encoding='utf8') as fp:
                 json_data = json.load(fp)
             body = {"id": edit_id,
@@ -370,7 +370,7 @@ class TestInspectionProvisions:
                     "data": json_data
                     }
         with allure.step("获取提交表单id"):
-            submit_resp = ServiceTemplate().rbInstancePUT(env_conf, gaolu_login, edit_id, body)
+            submit_resp = ServiceTemplate().rbInstancePUT(gaolu_login_report, edit_id, body)
             waitForStatus(submit_resp, 200, 200, 15)
             base_utils.file_is_exist(env_conf['用例配置']['主页']['文件路径'])
             resp = Content().contentGET(gaolu_login, ids[formGroup_id])

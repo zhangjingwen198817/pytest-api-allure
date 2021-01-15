@@ -175,7 +175,7 @@ class TestApproveForm:
 
     @allure.story("单个表单发起-审批-回退至上一步-回退至发起人-删除表单")
     @pytest.mark.skiprest
-    def test_approve_single_form(self, gaolu_login, gaolu_login_luban, env_conf):
+    def test_approve_single_form(self, gaolu_login, gaolu_login_luban, gaolu_login_report, env_conf):
         with allure.step("查看标段"):
             section_dict = return_section_dict(gaolu_login, env_conf['用例配置']['表单审批']['单个表单']['section'])
         with allure.step("获取资料模板条目列表"):
@@ -246,11 +246,11 @@ class TestApproveForm:
             pattern = re.compile(r'[?]id=[A-Za-z0-9]{1,}')
             result = pattern.findall(edit_hrefs[sheet_name])
             edit_id = result[0].split('=')[1]
-            ServiceTemplate().rbTemplateGET(env_conf, gaolu_login, templateId_ids[sheet_name])
-            content_resp = ServiceTemplate().rbInstanceGET(env_conf, gaolu_login, edit_id)
+            ServiceTemplate().rbTemplateGET(gaolu_login_report, templateId_ids[sheet_name])
+            content_resp = ServiceTemplate().rbInstanceGET(gaolu_login_report, edit_id)
             body = content_resp.get('source_response')['data']
         with allure.step("获取提交表单id"):
-            submit_resp = ServiceTemplate().rbInstancePUT(env_conf, gaolu_login, edit_id, body)
+            submit_resp = ServiceTemplate().rbInstancePUT(gaolu_login_report, edit_id, body)
             waitForStatus(submit_resp, 200, 200, 15)
             base_utils.file_is_exist(env_conf['用例配置']['表单审批']['单个表单']['文件路径'])
             os.rename(env_conf['用例配置']['表单审批']['单个表单']['文件路径'], "data/" + sheet_name + ".pdf")
@@ -318,7 +318,7 @@ class TestApproveForm:
 
     @allure.story("批量表单发起-审批-回退至上一步-回退至发起人-删除表单")
     @pytest.mark.skiprest
-    def test_approve_batch_form(self, gaolu_login, gaolu_login_luban, env_conf):
+    def test_approve_batch_form(self, gaolu_login, gaolu_login_luban, gaolu_login_report, env_conf):
         with allure.step("查看标段"):
             section_dict = return_section_dict(gaolu_login, env_conf['用例配置']['表单审批']['批量表单']['section'])
         with allure.step("获取资料模板条目列表"):
@@ -399,14 +399,14 @@ class TestApproveForm:
             result2 = pattern.findall(edit_hrefs[sheet_name2])
             edit_id1 = result1[0].split('=')[1]
             edit_id2 = result2[0].split('=')[1]
-            ServiceTemplate().rbTemplateGET(env_conf, gaolu_login, templateId_ids[sheet_name1])
-            ServiceTemplate().rbTemplateGET(env_conf, gaolu_login, templateId_ids[sheet_name2])
-            content_resp1 = ServiceTemplate().rbInstanceGET(env_conf, gaolu_login, edit_id1)
-            content_resp2 = ServiceTemplate().rbInstanceGET(env_conf, gaolu_login, edit_id2)
+            ServiceTemplate().rbTemplateGET(gaolu_login_report, templateId_ids[sheet_name1])
+            ServiceTemplate().rbTemplateGET(gaolu_login_report, templateId_ids[sheet_name2])
+            content_resp1 = ServiceTemplate().rbInstanceGET(gaolu_login_report, edit_id1)
+            content_resp2 = ServiceTemplate().rbInstanceGET(gaolu_login_report, edit_id2)
             body1 = content_resp1.get('source_response')['data']
             body2 = content_resp2.get('source_response')['data']
         with allure.step("获取提交表单id1"):
-            submit_resp1 = ServiceTemplate().rbInstancePUT(env_conf, gaolu_login, edit_id1, body1)
+            submit_resp1 = ServiceTemplate().rbInstancePUT(gaolu_login_report, edit_id1, body1)
             waitForStatus(submit_resp1, 200, 200, 15)
             base_utils.file_is_exist(env_conf['用例配置']['表单审批']['批量表单']['文件路径'])
             os.rename(env_conf['用例配置']['表单审批']['批量表单']['文件路径'], "data/" + sheet_name1 + ".pdf")
@@ -417,7 +417,7 @@ class TestApproveForm:
             waitForStatus(res1, 200, 200, 15)
             os.rename("data/" + sheet_name1 + ".pdf", env_conf['用例配置']['表单审批']['批量表单']['文件路径'])
         with allure.step("获取提交表单id2"):
-            submit_resp2 = ServiceTemplate().rbInstancePUT(env_conf, gaolu_login, edit_id2, body2)
+            submit_resp2 = ServiceTemplate().rbInstancePUT(gaolu_login_report, edit_id2, body2)
             waitForStatus(submit_resp2, 200, 200, 15)
             base_utils.file_is_exist(env_conf['用例配置']['表单审批']['批量表单']['文件路径'])
             os.rename(env_conf['用例配置']['表单审批']['批量表单']['文件路径'], "data/" + sheet_name2 + ".pdf")
@@ -510,7 +510,7 @@ class TestApproveForm:
 
     @allure.story("表单附件-上传-下载-删除")
     @pytest.mark.skiprest
-    def test_attach_up_download_delete(self, gaolu_login, gaolu_login_luban, env_conf):
+    def test_attach_up_download_delete(self, gaolu_login, gaolu_login_luban, gaolu_login_report, env_conf):
         with allure.step("查看标段"):
             section_dict = return_section_dict(gaolu_login, env_conf['用例配置']['表单审批']['表单附件']['section'])
         with allure.step("获取资料模板条目列表"):
@@ -581,11 +581,11 @@ class TestApproveForm:
             pattern = re.compile(r'[?]id=[A-Za-z0-9]{1,}')
             result = pattern.findall(edit_hrefs[sheet_name])
             edit_id = result[0].split('=')[1]
-            ServiceTemplate().rbTemplateGET(env_conf, gaolu_login, templateId_ids[sheet_name])
-            content_resp = ServiceTemplate().rbInstanceGET(env_conf, gaolu_login, edit_id)
+            ServiceTemplate().rbTemplateGET(gaolu_login_report, templateId_ids[sheet_name])
+            content_resp = ServiceTemplate().rbInstanceGET(gaolu_login_report, edit_id)
             body = content_resp.get('source_response')['data']
         with allure.step("获取提交表单id"):
-            submit_resp = ServiceTemplate().rbInstancePUT(env_conf, gaolu_login, edit_id, body)
+            submit_resp = ServiceTemplate().rbInstancePUT(gaolu_login_report, edit_id, body)
             waitForStatus(submit_resp, 200, 200, 15)
             base_utils.file_is_exist(env_conf['用例配置']['表单审批']['表单附件']['文件路径'])
             os.rename(env_conf['用例配置']['表单审批']['表单附件']['文件路径'], "data/" + sheet_name + ".pdf")

@@ -22,7 +22,7 @@ import os
 @allure.feature("检验评定-高级表单")
 class TestAdvancedForm:
     @allure.story("表单编辑-表单保存")
-    def test_advance_form(self, gaolu_login, gaolu_login_luban, env_conf):
+    def test_advance_form(self, gaolu_login, gaolu_login_luban, gaolu_login_report, env_conf):
         with allure.step("查看标段"):
             resp_id = Projects().projectsGET(gaolu_login)
             project_id = resp_id.get('data__embedded_projectModels_id')
@@ -98,11 +98,11 @@ class TestAdvancedForm:
             pattern = re.compile(r'[?]id=[A-Za-z0-9]{1,}')
             result = pattern.findall(edit_hrefs[sheet_name])
             edit_id = result[0].split('=')[1]
-            ServiceTemplate().rbTemplateGET(env_conf, gaolu_login, templateId_ids[sheet_name])
-            content_resp = ServiceTemplate().rbInstanceGET(env_conf, gaolu_login, edit_id)
+            ServiceTemplate().rbTemplateGET(gaolu_login_report, templateId_ids[sheet_name])
+            content_resp = ServiceTemplate().rbInstanceGET(gaolu_login_report, edit_id)
             body = content_resp.get('source_response')['data']
         with allure.step("获取提交表单id"):
-            submit_resp = ServiceTemplate().rbInstancePUT(env_conf, gaolu_login, edit_id, body)
+            submit_resp = ServiceTemplate().rbInstancePUT(gaolu_login_report, edit_id, body)
             waitForStatus(submit_resp, 200, 200, 15)
             base_utils.file_is_exist(env_conf['用例配置']['高级表单']['文件路径'])
             os.rename(env_conf['用例配置']['高级表单']['文件路径'], "data/" + sheet_name + ".pdf")
