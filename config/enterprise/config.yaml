@@ -1,4 +1,5 @@
 pds: http://jg.scgsdsj.com
+pds_luban: http://jg.scgsdsj.com
 url_tmp: http://jg.scgsdsj.com
 
 youdu_users: "胡彪_张静文_李瑞霞_胡建东"
@@ -48,6 +49,7 @@ Gaolu:
   主页:
     section: "K2"
     项目节点: "路面工程"
+    项目子节点: "K89+130~K88+918路面工程"
     subItem: "K89+110~K88+923面层"
     父表单: "测试表6.2.2-2 干砌挡土墙分项工程质量检验评定表(JL)"
     文件路径: "data/测试表6.2.2-2 干砌挡土墙分项工程质量检验评定表(JL).pdf"

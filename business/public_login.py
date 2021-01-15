@@ -737,6 +737,43 @@ class Gaolu:
         self.password = password
         self.header = envConf["headers"]["json_header"]
         self.GaoluLogin = base_requests.Send(envConf["pds"], envConf, global_cache=self.cache)
+        self.glxxUser = None
+
+    def getConfig(self):
+        resource = "/inspection/inspection-webjars/dist/config.js"
+        response = self.GaoluLogin.request('get', resource)
+        self.glxxUser = response["Response_text"].split("\n")[2].split(":", 1)[-1].replace(" ", "")
+
+    def auth_login(self):
+        '''
+        Gaolu 登录
+        '''
+        resource = self.glxxUser.replace('"', '') + "/auth/login"
+        body = {"username": self.username, "password": self.password}
+        response = self.GaoluLogin.request('post', resource, body)
+        Assertions().assert_equal_value(response["status_code"], 200)
+        # 获取到响应的token并更新到header中
+        header = json.loads(self.GaoluLogin.header)
+        header.update({"access-token": response['data_accessToken'][0]})
+        self.GaoluLogin.header = json.dumps(header)
+
+    def login(self):
+        self.getConfig()
+        self.auth_login()
+        return self.GaoluLogin
+
+
+class Gaolu_luban:
+    '''
+    token登录流程
+    '''
+
+    def __init__(self, username, password, envConf, global_cache):
+        self.cache = global_cache
+        self.username = username
+        self.password = password
+        self.header = envConf["headers"]["json_header"]
+        self.GaoluLogin = base_requests.Send(envConf["pds_luban"], envConf, global_cache=self.cache)
 
     def login(self):
         '''

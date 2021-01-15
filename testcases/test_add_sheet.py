@@ -23,10 +23,10 @@ new_template_node3 = "工程划分测试" + base_utils.generate_random_str()
 class TestInspectionProvisions:
     @allure.story("添加工程模板划分-前置条件")
     @pytest.mark.skiprest
-    def test_add_engineering_template_deploy(self, gaolu_login, env_conf):
+    def test_add_engineering_template_deploy(self, gaolu_login, gaolu_login_luban, env_conf):
         # 添加工程模板
         with allure.step("查询工程划分目录"):
-            project_tree_resp = Project_template().pageProjectTemplateUsingGET(gaolu_login, pageSize=10000, pageIndex=1)
+            project_tree_resp = Project_template().pageProjectTemplateUsingGET(gaolu_login_luban, pageSize=10000, pageIndex=1)
             if project_tree_resp.get('data_totalCount')[0] == 0:
                 print("工程划分节点为空")
             else:
@@ -36,10 +36,10 @@ class TestInspectionProvisions:
                 "nameList": [new_template_node1],
                 "parentId": "0"
             }
-            creat_node1_resp = Project_template().saveProjectTemplateUsingPOST(gaolu_login, creat_body_node1)
+            creat_node1_resp = Project_template().saveProjectTemplateUsingPOST(gaolu_login_luban, creat_body_node1)
             waitForStatus(creat_node1_resp, 200, 200, 15)
         with allure.step("断言添加工程划分一级节点: {0} 添加成功".format(new_template_node1)):
-            check_tree_resp1 = Project_template().pageProjectTemplateUsingGET(gaolu_login, pageSize=10000, pageIndex=1)
+            check_tree_resp1 = Project_template().pageProjectTemplateUsingGET(gaolu_login_luban, pageSize=10000, pageIndex=1)
             Assertions.assert_in_value(check_tree_resp1.get('data_result_name'), new_template_node1)
             allure.attach("断言添加工程划分一级节点: {0} 添加成功".format(new_template_node1))
             node_datas = check_tree_resp1.get('source_response')['data']['result']
@@ -51,10 +51,10 @@ class TestInspectionProvisions:
                 "nameList": [new_template_node2],
                 "parentId": dict_name_id1[new_template_node1]
             }
-            creat_node2_resp = Project_template().saveProjectTemplateUsingPOST(gaolu_login, creat_body_node2)
+            creat_node2_resp = Project_template().saveProjectTemplateUsingPOST(gaolu_login_luban, creat_body_node2)
             waitForStatus(creat_node2_resp, 200, 200, 15)
         with allure.step("断言添加工程划分二级节点: {0} 添加成功".format(new_template_node2)):
-            check_tree_resp2 = Project_template().pageProjectTemplateUsingGET(gaolu_login, pageSize=10000, pageIndex=1)
+            check_tree_resp2 = Project_template().pageProjectTemplateUsingGET(gaolu_login_luban, pageSize=10000, pageIndex=1)
             Assertions.assert_in_value(check_tree_resp2.get('data_result_name'), new_template_node2)
             allure.attach("断言添加工程划分二级节点: {0} 添加成功".format(new_template_node2))
             node_datas = check_tree_resp2.get('source_response')['data']['result']
@@ -66,10 +66,10 @@ class TestInspectionProvisions:
                 "nameList": [new_template_node3],
                 "parentId": dict_name_id2[new_template_node2]
             }
-            creat_node2_resp = Project_template().saveProjectTemplateUsingPOST(gaolu_login, creat_body_node3)
+            creat_node2_resp = Project_template().saveProjectTemplateUsingPOST(gaolu_login_luban, creat_body_node3)
             waitForStatus(creat_node2_resp, 200, 200, 15)
         with allure.step("断言添加工程划分三级节点: {0} 添加成功".format(new_template_node3)):
-            check_tree_resp2 = Project_template().pageProjectTemplateUsingGET(gaolu_login, pageSize=10000, pageIndex=1)
+            check_tree_resp2 = Project_template().pageProjectTemplateUsingGET(gaolu_login_luban, pageSize=10000, pageIndex=1)
             Assertions.assert_in_value(check_tree_resp2.get('data_result_name'), new_template_node3)
             allure.attach("断言添加工程划分三级节点: {0} 添加成功".format(new_template_node3))
             node_datas = check_tree_resp2.get('source_response')['data']['result']
@@ -78,7 +78,7 @@ class TestInspectionProvisions:
                 dict_name_id3[data['name']] = data['id']
         # 工程模板管理表单
         with allure.step("获取资料模板条目列表"):
-            resp_temp = Data_template().pageDataTemplateItemUsingGET(gaolu_login, page_size=10000, page_index=1)
+            resp_temp = Data_template().pageDataTemplateItemUsingGET(gaolu_login_luban, page_size=10000, page_index=1)
             type_dic = {"开工报告": 1,
                         "质量检验（施工）": 2,
                         "交工评定（施工）": 3,
@@ -95,11 +95,11 @@ class TestInspectionProvisions:
                       "type": type_dic['开工报告']}],
                 "projectTemplateId": dict_name_id3[new_template_node3]
             }
-            bind_resp = Project_template().bindDataTemplate2ProjectTemplateUsingPOST(gaolu_login, body1)
+            bind_resp = Project_template().bindDataTemplate2ProjectTemplateUsingPOST(gaolu_login_luban, body1)
             waitForStatus(bind_resp, 200, 200, 15)
         with allure.step(
                 "关联表单模板: {0} 到模板: {1} 成功".format(new_template_node3, env_conf['用例配置']['增加表单']['应用模板表单'])):
-            check_table_resp5 = Project_template().pageProjectTemplateUsingGET(gaolu_login, pageSize=10000, pageIndex=1)
+            check_table_resp5 = Project_template().pageProjectTemplateUsingGET(gaolu_login_luban, pageSize=10000, pageIndex=1)
             actual_value = None
             for data in check_table_resp5.get('source_response')['data']['result']:
                 if data['name'] == new_template_node3:
@@ -108,12 +108,12 @@ class TestInspectionProvisions:
 
     @allure.story("新增表单-表单上移下移动-上传模板-应用模板-删除表单")
     @pytest.mark.skiprest
-    def test_new_sheet(self, gaolu_login, env_conf):
+    def test_new_sheet(self, gaolu_login, gaolu_login_luban, env_conf):
         # 新增表单
         with allure.step("查看标段"):
             section_dict = return_section_dict(gaolu_login, env_conf['用例配置']['增加表单']['section'])
         with allure.step("获取资料模板条目列表"):
-            resp_temp = Data_template().pageDataTemplateItemUsingGET(gaolu_login, page_size=10000, page_index=1)
+            resp_temp = Data_template().pageDataTemplateItemUsingGET(gaolu_login_luban, page_size=10000, page_index=1)
             for data in resp_temp.get('source_response')['data']['result']:
                 if data['name'] == env_conf['用例配置']['增加表单']['父表单']:
                     template_id1 = data['formTemplateId']
@@ -217,7 +217,7 @@ class TestInspectionProvisions:
             Assertions.assert_equal_value(result_weight_dict[str(name_id_dict[env_conf['用例配置']['增加表单']['普通表单']])],
                                           id_weight_dict[str(name_id_dict[env_conf['用例配置']['增加表单']['父表单']])])
         with allure.step("获取资料模板条目列表"):
-            resp_temp = Data_template().pageDataTemplateItemUsingGET(gaolu_login, page_size=10000, page_index=1)
+            resp_temp = Data_template().pageDataTemplateItemUsingGET(gaolu_login_luban, page_size=10000, page_index=1)
             for data in resp_temp.get('source_response')['data']['result']:
                 if data['name'] == env_conf['用例配置']['增加表单']['应用模板表单']:
                     template_id3 = data['formTemplateId']
@@ -282,37 +282,38 @@ class TestInspectionProvisions:
             waitForStatus(delete_sheet3, 200, 200, 15)
 
     @allure.story("删除工程模板划分-清理前置条件")
-    def test_delete_engineering_template(self, gaolu_login, env_conf):
-        check_tree_resp2 = Project_template().pageProjectTemplateUsingGET(gaolu_login, pageSize=10000, pageIndex=1)
+    def test_delete_engineering_template(self, gaolu_login, gaolu_login_luban, env_conf):
+        check_tree_resp2 = Project_template().pageProjectTemplateUsingGET(gaolu_login_luban, pageSize=10000,
+                                                                          pageIndex=1)
         node_datas = check_tree_resp2.get('source_response')['data']['result']
         dict_name_id3 = {}
         for data in node_datas:
             dict_name_id3[data['name']] = data['id']
         # 删除工程模板节点
         with allure.step("删除工程划分三级节点"):
-            delete_project3 = Project_template().deleteProjectTemplateUsingDELETE(gaolu_login,
+            delete_project3 = Project_template().deleteProjectTemplateUsingDELETE(gaolu_login_luban,
                                                                                   dict_name_id3[new_template_node3])
             waitForStatus(delete_project3, 200, 200, 15)
         with allure.step("断言删除工程划分三级节点: {0} 添加成功".format(new_template_node3)):
-            check_tree_resp3 = Project_template().pageProjectTemplateUsingGET(gaolu_login, pageSize=10000,
+            check_tree_resp3 = Project_template().pageProjectTemplateUsingGET(gaolu_login_luban, pageSize=10000,
                                                                               pageIndex=1)
             Assertions.assert_not_in_value(check_tree_resp3.get('data_result_name'), new_template_node3)
             allure.attach("断言删除工程划分三级节点: {0} 添加成功".format(new_template_node3))
         with allure.step("删除工程划分二级节点"):
-            delete_project2 = Project_template().deleteProjectTemplateUsingDELETE(gaolu_login,
+            delete_project2 = Project_template().deleteProjectTemplateUsingDELETE(gaolu_login_luban,
                                                                                   dict_name_id3[new_template_node2])
             waitForStatus(delete_project2, 200, 200, 15)
         with allure.step("断言删除工程划分二级节点: {0} 添加成功".format(new_template_node2)):
-            check_tree_resp3 = Project_template().pageProjectTemplateUsingGET(gaolu_login, pageSize=10000,
+            check_tree_resp3 = Project_template().pageProjectTemplateUsingGET(gaolu_login_luban, pageSize=10000,
                                                                               pageIndex=1)
             Assertions.assert_not_in_value(check_tree_resp3.get('data_result_name'), new_template_node2)
             allure.attach("断言删除工程划分二级节点: {0} 添加成功".format(new_template_node2))
         with allure.step("删除工程划分一级节点"):
-            delete_project1 = Project_template().deleteProjectTemplateUsingDELETE(gaolu_login,
+            delete_project1 = Project_template().deleteProjectTemplateUsingDELETE(gaolu_login_luban,
                                                                                   dict_name_id3[new_template_node1])
             waitForStatus(delete_project1, 200, 200, 15)
         with allure.step("断言删除工程划分一级节点: {0} 添加成功".format(new_template_node1)):
-            check_tree_resp3 = Project_template().pageProjectTemplateUsingGET(gaolu_login, pageSize=10000,
+            check_tree_resp3 = Project_template().pageProjectTemplateUsingGET(gaolu_login_luban, pageSize=10000,
                                                                               pageIndex=1)
             Assertions.assert_not_in_value(check_tree_resp3.get('data_result_name'), new_template_node1)
             allure.attach("断言删除工程划分一级节点: {0} 添加成功".format(new_template_node1))

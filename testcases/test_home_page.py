@@ -149,7 +149,7 @@ new_flow = "流程测试" + base_utils.generate_random_str()
 class TestInspectionProvisions:
     @allure.story("添加无签名签章审批流程-前置条件")
     @pytest.mark.skiprest
-    def test_flow_setting_home_page_deploy(self, gaolu_login, env_conf):
+    def test_flow_setting_home_page_deploy(self, gaolu_login, gaolu_login_luban, env_conf):
         new_flow_mark = 'mark_' + new_flow
         new_flow_1 = "流程1_" + base_utils.generate_random_str()
         new_flow_2 = "流程2_" + base_utils.generate_random_str()
@@ -161,11 +161,11 @@ class TestInspectionProvisions:
             fullName = resp.get('source_response')['data']['fullName']
             username = resp.get('source_response')['data']['username']
         with allure.step('获取发起人角色信息: {0}'.format(roleName)):
-            get_roleName = Roleandrole().findRolesUsingGET(gaolu_login, roleName)
+            get_roleName = Roleandrole().findRolesUsingGET(gaolu_login_luban, roleName)
             roleIdList = get_roleName.get('data_id')[0]
             Assertions.assert_equal_value(get_roleName.get('data_rolename')[0], roleName)
         with allure.step('获取发起人用户信息: {0}'.format(fullName)):
-            get_userName = Roleandrole().findUsersUsingGET(gaolu_login)
+            get_userName = Roleandrole().findUsersUsingGET(gaolu_login_luban)
             userinfo_datas = get_userName.get('source_response')['data']
             userIdList = None
             for data in userinfo_datas:
@@ -239,12 +239,14 @@ class TestInspectionProvisions:
                 "sponsorRoleList": [roleIdList],
                 "sponsorType": 1,
                 "sponsorUserList": [],
-                "typeName": new_flow
+                "typeName": new_flow,
+                "module": "INSPECTION"
             }
-            post_newCreat = Process_template().saveOrUpdateProcessTemplateUsingPOST(gaolu_login, body)
+            post_newCreat = Process_template().saveOrUpdateProcessTemplateUsingPOST(gaolu_login_luban, body)
             waitForStatus(post_newCreat, 200, 200, 15)
         with allure.step('断言新添加流程: {0} 成功'.format(new_flow)):
-            assert_newCreat = Process_template().pageProcessTemplateUsingGET(gaolu_login, page_size=10000, page_index=1)
+            assert_newCreat = Process_template().pageProcessTemplateUsingGET(gaolu_login_luban, page_size=10000,
+                                                                             page_index=1)
             result_datas = assert_newCreat.get('source_response')['data']['result']
             key_in_listdict(result_datas, new_flow, 'typeName')
             print("\n新建流程: {0} 成功".format(new_flow))
@@ -253,7 +255,7 @@ class TestInspectionProvisions:
                 if data['typeName'] == new_flow:
                     processTemplateId = data['key']
         with allure.step('获取表单模板库id'):
-            resp_id = Data_template().pageDataTemplateUsingGET(gaolu_login, pageSize=50, pageIndex=1)
+            resp_id = Data_template().pageDataTemplateUsingGET(gaolu_login_luban, pageSize=50, pageIndex=1)
             dict_form_id = {}
             for data in resp_id.get('source_response')['data']['result']:
                 dict_form_id[data['name']] = data['id']
@@ -261,7 +263,7 @@ class TestInspectionProvisions:
         with allure.step('获取原有关联表单json'):
             list_body = []
             itemId = None
-            resp_temp = Data_template().pageDataTemplateItemUsingGET(gaolu_login, page_size=10000, page_index=1)
+            resp_temp = Data_template().pageDataTemplateItemUsingGET(gaolu_login_luban, page_size=10000, page_index=1)
             for data in resp_temp.get('source_response')['data']['result']:
                 if data['processTemplateId'] != '':
                     list_body.append({"itemId": data['id'],
@@ -280,10 +282,10 @@ class TestInspectionProvisions:
                 templateCode = data['templateCode']
             body = {"item2formTemplateItemIdList": list_body,
                     "templateCode": templateCode}
-            post_resp = Data_template().updateDataTemplateItem2ProcessTemplateUsingPOST(gaolu_login, body)
+            post_resp = Data_template().updateDataTemplateItem2ProcessTemplateUsingPOST(gaolu_login_luban, body)
             waitForStatus(post_resp, 200, 200, 15)
         with allure.step("断言关联表单成功"):
-            resp_result = Data_template().pageDataTemplateItemUsingGET(gaolu_login, page_size=10000, page_index=1)
+            resp_result = Data_template().pageDataTemplateItemUsingGET(gaolu_login_luban, page_size=10000, page_index=1)
             for data in resp_result.get('source_response')['data']['result']:
                 if data['name'] == env_conf['用例配置']['主页']['父表单']:
                     Assertions.assert_equal_value(data['processTemplateId'], processTemplateId)
@@ -291,11 +293,11 @@ class TestInspectionProvisions:
 
     @allure.story("单个交工评定表单发起-审批-删除表单")
     @pytest.mark.skiprest
-    def test_completion_form(self, gaolu_login, env_conf):
+    def test_completion_form(self, gaolu_login, gaolu_login_luban, env_conf):
         with allure.step("查看标段"):
             section_dict = return_section_dict(gaolu_login, env_conf['用例配置']['主页']['section'])
         with allure.step("获取资料模板条目列表"):
-            resp_temp = Data_template().pageDataTemplateItemUsingGET(gaolu_login, page_size=10000, page_index=1)
+            resp_temp = Data_template().pageDataTemplateItemUsingGET(gaolu_login_luban, page_size=10000, page_index=1)
             for data in resp_temp.get('source_response')['data']['result']:
                 if data['name'] == env_conf['用例配置']['主页']['父表单']:
                     template_id1 = data['formTemplateId']
@@ -304,7 +306,7 @@ class TestInspectionProvisions:
             resp = UserInfo().getUserInfoUsingGET(gaolu_login)
             fullName = resp.get('source_response')['data']['fullName']
         with allure.step('获取发起人用户信息: {0}'.format(fullName)):
-            get_userName = Roleandrole().findUsersUsingGET(gaolu_login)
+            get_userName = Roleandrole().findUsersUsingGET(gaolu_login_luban)
             userinfo_datas = get_userName.get('source_response')['data']
             userIdList = None
             for data in userinfo_datas:
@@ -460,10 +462,10 @@ class TestInspectionProvisions:
             waitForStatus(delete_sheet1, 200, 200, 15)
 
     @allure.story("删除审批流程-删除前置条件数据")
-    @pytest.mark.skiprest
-    def test_delete_work_flow_home_page(self, gaolu_login, env_conf):
+    def test_delete_work_flow_home_page(self, gaolu_login, gaolu_login_luban, env_conf):
         with allure.step("删除流程"):
-            assert_newCreat = Process_template().pageProcessTemplateUsingGET(gaolu_login, page_size=10000, page_index=1)
+            assert_newCreat = Process_template().pageProcessTemplateUsingGET(gaolu_login_luban, page_size=10000,
+                                                                             page_index=1)
             result_datas = assert_newCreat.get('source_response')['data']['result']
             key_in_listdict(result_datas, new_flow, 'typeName')
             print("\n新建流程: {0} 成功".format(new_flow))
@@ -471,10 +473,11 @@ class TestInspectionProvisions:
             for data in result_datas:
                 if data['typeName'] == new_flow:
                     processTemplateId = data['key']
-            delete_resp = Process_template().deleteProcessTemplateUsingPOST(gaolu_login, processTemplateId)
+            delete_resp = Process_template().deleteProcessTemplateUsingPOST(gaolu_login_luban, processTemplateId)
             waitForStatus(delete_resp, 200, 200, 15)
         with allure.step('断言删除流程: {0} 成功'.format(new_flow)):
-            assert_delete = Process_template().pageProcessTemplateUsingGET(gaolu_login, page_size=10000, page_index=1)
+            assert_delete = Process_template().pageProcessTemplateUsingGET(gaolu_login_luban, page_size=10000,
+                                                                           page_index=1)
             result_delte = assert_delete.get('source_response')['data']['result']
             key_not_in_listdict(result_delte, new_flow, 'typeName')
             print("删除流程: {0} 成功".format(new_flow))

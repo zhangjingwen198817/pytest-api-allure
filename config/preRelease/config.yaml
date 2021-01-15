@@ -1,10 +1,54 @@
-pds : http://app.lbuilder.cn
-youdu_users: "胡彪"
+pds: http://192.168.13.236:58888
+pds_luban: http://192.168.13.236:8889
+url_tmp: http://192.168.13.236:7500
+
+youdu_users: "胡彪_张静文_李瑞霞_胡建东"
+#youdu_users: "张静文"
 weixin_toparty: 2
-center:
-  username: lb91247
-  password: 264f0c676e143da03019f1698304c468
-iworksApp :
-  username : test
-  password : 96e79218965eb72c92a549dd5a325612
-  clientVersion: 1.9.0
+Gaolu:
+  username: lxl
+  password: 123456
+
+用例配置:
+  表单关联: "测试表10.4.2 明洞防水层现场质量检验表(JL)"
+  工程模板:
+    dataTemplateItemId1: "测试表10.4.2 明洞防水层现场质量检验表(JL)"
+    dataTemplateItemId2: "测试表4.4.2-6 软土地基刚性桩现场质量检验表(SG)"
+    dataTemplateItemId3: "测试表4.5.2-1 加筋工程土工合成材料现场质量检验表(SG)"
+    dataTemplateItemId4: "测试表4.5.2-2 隔离工程土工合成材料现场质量检验表(SG)"
+    dataTemplateItemId5: "测试表4.5.2-3 过滤排水工程土工合成材料现场质量检验表(SG)"
+  增加表单:
+    section: "K2"
+    subItem: "K89+110～K88+923面层"
+    父表单: "测试表10.2.2 隧道总体现场质量检验表(JL)"
+    普通表单: "测试表4.4.2-5 水泥粉煤灰碎石桩分项工程质量检验评定表(SG)"
+    应用模板表单: "测试表10.4.2 明洞防水层现场质量检验表(JL)"
+  高级表单:
+    section: "K2"
+    subItem: "K89+110～K88+923面层"
+    父表单: "测试表4.4.2-6 软土地基刚性桩现场质量检验表(SG)"
+    文件路径: "data/高级表单.pdf"
+  表单审批:
+    单个表单:
+      section: "K2"
+      subItem: "K89+110～K88+923面层"
+      父表单: "测试表4.5.2-4 防裂工程土工合成材料现场质量检验表(SG)"
+      文件路径: "data/高级表单.pdf"
+    批量表单:
+      section: "K2"
+      subItem: "K89+110～K88+923面层"
+      父表单: "测试表4.5.2-4 防裂工程土工合成材料现场质量检验表(SG)"
+      文件路径: "data/高级表单.pdf"
+    表单附件:
+      section: "K2"
+      subItem: "K89+110～K88+923面层"
+      父表单: "测试表4.5.2-4 防裂工程土工合成材料现场质量检验表(SG)"
+      文件路径: "data/高级表单.pdf"
+      图片附件: "data/image-test.png"
+      下载附件: "data/down_png.png"
+  主页:
+    section: "K2"
+    项目节点: "路面工程"
+    subItem: "K89+110～K88+923面层"
+    父表单: "测试表6.2.2-2 干砌挡土墙分项工程质量检验评定表(JL)"
+    文件路径: "data/测试表6.2.2-2 干砌挡土墙分项工程质量检验评定表(JL).pdf"

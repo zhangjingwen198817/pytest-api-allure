@@ -22,7 +22,7 @@ import os
 @allure.feature("检验评定-高级表单")
 class TestAdvancedForm:
     @allure.story("表单编辑-表单保存")
-    def test_advance_form(self, gaolu_login, env_conf):
+    def test_advance_form(self, gaolu_login, gaolu_login_luban, env_conf):
         with allure.step("查看标段"):
             resp_id = Projects().projectsGET(gaolu_login)
             project_id = resp_id.get('data__embedded_projectModels_id')
@@ -41,7 +41,7 @@ class TestAdvancedForm:
             for data in unit_datas:
                 section_dict[data['name']] = data['id']
         with allure.step("获取资料模板条目列表"):
-            resp_temp = Data_template().pageDataTemplateItemUsingGET(gaolu_login, page_size=10000, page_index=1)
+            resp_temp = Data_template().pageDataTemplateItemUsingGET(gaolu_login_luban, page_size=10000, page_index=1)
             for data in resp_temp.get('source_response')['data']['result']:
                 if data['name'] == env_conf['用例配置']['高级表单']['父表单']:
                     template_id1 = data['formTemplateId']

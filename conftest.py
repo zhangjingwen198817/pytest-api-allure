@@ -423,6 +423,16 @@ def gaolu_login(env_conf, global_cache):
     yield GaolLulogin
 
 
+@pytest.fixture(scope="session")
+def gaolu_login_luban(env_conf, global_cache):
+    '''
+    gaolu_login_luban系统登录
+    '''
+    GaolLulogin_luban = public_login.Gaolu_luban(env_conf["Gaolu"]["username"], env_conf["Gaolu"]["password"], env_conf,
+                                                 global_cache).login()
+    yield GaolLulogin_luban
+
+
 def pytest_sessionstart(session):
     session.failednames = set()
 

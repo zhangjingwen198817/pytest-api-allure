@@ -49,7 +49,7 @@ class Process_template:
         return response
 
     @allure.step('流程模版列表接口（分页）')
-    def pageProcessTemplateUsingGET(self, item_fixture, keyword=None, page_size=None, page_index=None, switch_status=None):
+    def pageProcessTemplateUsingGET(self, item_fixture, keyword=None, page_size=None, page_index=None, switch_status=None, module='INSPECTION'):
         '''
         流程模版列表接口（分页）
         :param item_fixture: item fixture,
@@ -59,7 +59,8 @@ class Process_template:
         :param switch_status: 流程启用状态(0:不启用 1:启用   默认查询所有状态)
         '''
         resource = f'/luban-glxx-user/process/template/page'
-        query_params = {'keyword': keyword, 'page_index': page_index, 'page_size': page_size, 'switch_status': switch_status}
+        query_params = {'keyword': keyword, 'page_index': page_index, 'page_size': page_size, 'switch_status': switch_status,
+                        'module': module}
         response = item_fixture.request('GET', resource, params = query_params)
         return response
 
