@@ -104,25 +104,25 @@ def key_not_in_listdict(data, value, index):
         assert True, '{0}列表存在{1}'.format(data, value)
 
 
-@allure.step("返回标段信息")
-def return_section_dict(item_fixture, env_conf_value):
-    resp_id = Projects().projectsGET(item_fixture)
-    project_id = resp_id.get('data__embedded_projectModels_id')
-    body = {"projectId": project_id}
-    resp = Sections().sectionsGET(item_fixture, body)
-    biaoduan_resp = resp.get('source_response')['data']['_embedded']['sectionModels']
-    biaoduan_dict = {}
-    for data in biaoduan_resp:
-        biaoduan_dict[data['name']] = data['id']
-    body = {
-        "sectionId": biaoduan_dict[env_conf_value],
-    }
-    resp = Sections().searchAll(item_fixture, body)
-    unit_datas = resp.get('source_response')['data']['_embedded']['projectNodeModels']
-    section_dict = {}
-    for data in unit_datas:
-        section_dict[data['name']] = data['id']
-    return section_dict
+# @allure.step("返回标段信息")
+# def return_section_dict(item_fixture, env_conf_value):
+#     resp_id = Projects().projectsGET(item_fixture)
+#     project_id = resp_id.get('data__embedded_projectModels_id')
+#     body = {"projectId": project_id}
+#     resp = Sections().sectionsGET(item_fixture, body)
+#     biaoduan_resp = resp.get('source_response')['data']['_embedded']['sectionModels']
+#     biaoduan_dict = {}
+#     for data in biaoduan_resp:
+#         biaoduan_dict[data['name']] = data['id']
+#     body = {
+#         "sectionId": biaoduan_dict[env_conf_value],
+#     }
+#     resp = Sections().searchAll(item_fixture, body)
+#     unit_datas = resp.get('source_response')['data']['_embedded']['projectNodeModels']
+#     section_dict = {}
+#     for data in unit_datas:
+#         section_dict[data['name']] = data['id']
+#     return section_dict
 
 
 @allure.step("返回组装子表单信息的body")
@@ -155,3 +155,54 @@ def return_TemplateName_Id(item_fixture, section_dict, env_conf):
     for data in datas:
         templateName_id[data['templateName']] = data['id']
     return templateName_id
+
+
+@allure.step("返回K级标段信息")
+def return_section_dict(item_fixture):
+    resp_id = Projects().projectsGET(item_fixture)
+    project_id = resp_id.get('data__embedded_projectModels_id')
+    body = {"projectId": project_id}
+    resp = Sections().sectionsGET(item_fixture, body)
+    biaoduan_resp = resp.get('source_response')['data']['_embedded']['sectionModels']
+    biaoduan_dict = {}
+    for data in biaoduan_resp:
+        biaoduan_dict[data['name']] = data['id']
+    return biaoduan_dict
+
+
+@allure.step("返回home级数组")
+def return_section_array(item_fixture, dict_temp, env_conf_value):
+    body = {
+        "sectionId": dict_temp[env_conf_value],
+    }
+    resp = Sections().searchAll(item_fixture, body)
+    unit_datas = resp.get('source_response')['data']['_embedded']['projectNodeModels']
+    section_arry = []
+    for data in unit_datas:
+        section_arry.append({'name': data['name'], 'id': data['id'], 'parentId': data['parentId']})
+    return section_arry
+
+
+@allure.step("返回home级ID")
+def get_section_home_id(arr, env_conf_value):
+    id = None
+    for data in arr:
+        if data['name'] == env_conf_value:
+            id = data['id']
+    return id
+
+
+@allure.step("获取指定节点的数据")
+def get_data(arr, pid, env_conf_value):
+    data_temp = None
+    for data in arr:
+        if data['parentId'] == pid and data['name'] == env_conf_value:
+            data_temp = data
+    return data_temp
+
+
+@allure.step("组装为字典")
+def assemble_dict(data):
+    dic = {}
+    dic[data['name']] = data['id']
+    return dic
