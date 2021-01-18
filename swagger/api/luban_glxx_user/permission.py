@@ -6,13 +6,14 @@
 
 import allure
 
+
 class Permission:
     '''
     功能权限模块
     '''
 
     @allure.step('角色和权限绑定接口(新的)')
-    def saveRoleMenuUsingPOST(self, item_fixture, roleId=None, moduleType=None, perm=None):
+    def saveRoleMenuUsingPOST(self, item_fixture, body):
         '''
         角色和权限绑定接口(新的)
         :param item_fixture: item fixture,
@@ -21,7 +22,6 @@ class Permission:
         :param roleId: 角色id
         '''
         resource = f'/luban-glxx-user/permission/saveMenu'
-        body = [{'moduleType': moduleType, 'perm': perm, 'roleId': roleId}]
         response = item_fixture.request('POST', resource, body)
         return response
 
@@ -34,7 +34,7 @@ class Permission:
         '''
         resource = f'/luban-glxx-user/permission/select'
         query_params = {'roleId': roleId}
-        response = item_fixture.request('GET', resource, params = query_params)
+        response = item_fixture.request('GET', resource, params=query_params)
         return response
 
     @allure.step('模糊查询角色列表接口带分页')
@@ -48,7 +48,7 @@ class Permission:
         '''
         resource = f'/luban-glxx-user/permission/select/page'
         query_params = {'page_index': page_index, 'page_size': page_size, 'rolename': rolename}
-        response = item_fixture.request('GET', resource, params = query_params)
+        response = item_fixture.request('GET', resource, params=query_params)
         return response
 
     @allure.step('查询权限列表接口(新的)')
@@ -61,6 +61,5 @@ class Permission:
         '''
         resource = f'/luban-glxx-user/permission/selectMenu'
         query_params = {'moduleType': moduleType, 'roleId': roleId}
-        response = item_fixture.request('GET', resource, params = query_params)
+        response = item_fixture.request('GET', resource, params=query_params)
         return response
-

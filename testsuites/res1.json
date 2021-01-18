@@ -1,0 +1,333 @@
+[
+  {
+    "roleId": "9129ef2c154245a7ad708728390fcaa6",
+    "moduleType": 0
+  },
+  {
+    "perm": "archive_management:submit_for_archive"
+  },
+  {
+    "perm": "index:view"
+  },
+  {
+    "perm": "report:upload_att_jsgl_gxjy"
+  },
+  {
+    "perm": "report:upload_att_jsgl_gxjy"
+  },
+  {
+    "perm": "report:view"
+  },
+  {
+    "perm": "report:edit"
+  },
+  {
+    "perm": "report:delete"
+  },
+  {
+    "perm": "report:rename"
+  },
+  {
+    "perm": "report:approve"
+  },
+  {
+    "perm": "report:sign"
+  },
+  {
+    "perm": "report:submit"
+  },
+  {
+    "perm": "report:upload_att_jsgl"
+  },
+  {
+    "perm": "report:upload_att"
+  },
+  {
+    "perm": "report:delete_att"
+  },
+  {
+    "perm": "report:download_att"
+  },
+  {
+    "perm": "report:application_att"
+  },
+  {
+    "perm": "report:batch_approval"
+  },
+  {
+    "perm": "report:batch_delete"
+  },
+  {
+    "perm": "report:batch_add"
+  },
+  {
+    "perm": "report:upload_template"
+  },
+  {
+    "perm": "report:download_template"
+  },
+  {
+    "perm": "eval_construction:upload_att_jsgl_gxjy"
+  },
+  {
+    "perm": "eval_construction:upload_att_jsgl_gxjy"
+  },
+  {
+    "perm": "eval_construction:view"
+  },
+  {
+    "perm": "eval_construction:add"
+  },
+  {
+    "perm": "eval_construction:edit"
+  },
+  {
+    "perm": "eval_construction:delete"
+  },
+  {
+    "perm": "eval_construction:rename"
+  },
+  {
+    "perm": "eval_construction:approve"
+  },
+  {
+    "perm": "eval_construction:sign"
+  },
+  {
+    "perm": "eval_construction:submit"
+  },
+  {
+    "perm": "eval_construction:upload_att_jsgl"
+  },
+  {
+    "perm": "eval_construction:upload_att"
+  },
+  {
+    "perm": "eval_construction:delete_att"
+  },
+  {
+    "perm": "eval_construction:download_att"
+  },
+  {
+    "perm": "eval_construction:application_att"
+  },
+  {
+    "perm": "eval_construction:batch_approval"
+  },
+  {
+    "perm": "eval_construction:batch_delete"
+  },
+  {
+    "perm": "eval_construction:batch_add"
+  },
+  {
+    "perm": "eval_construction:upload_template"
+  },
+  {
+    "perm": "eval_construction:download_template"
+  },
+  {
+    "perm": "test_construction:upload_att_jsgl_gxjy"
+  },
+  {
+    "perm": "test_construction:upload_att_jsgl_gxjy"
+  },
+  {
+    "perm": "test_construction:view"
+  },
+  {
+    "perm": "test_construction:add"
+  },
+  {
+    "perm": "test_construction:edit"
+  },
+  {
+    "perm": "test_construction:delete"
+  },
+  {
+    "perm": "test_construction:rename"
+  },
+  {
+    "perm": "test_construction:approve"
+  },
+  {
+    "perm": "test_construction:sign"
+  },
+  {
+    "perm": "test_construction:submit"
+  },
+  {
+    "perm": "test_construction:upload_att_jsgl"
+  },
+  {
+    "perm": "test_construction:upload_att"
+  },
+  {
+    "perm": "test_construction:delete_att"
+  },
+  {
+    "perm": "test_construction:download_att"
+  },
+  {
+    "perm": "test_construction:application_att"
+  },
+  {
+    "perm": "test_construction:batch_approval"
+  },
+  {
+    "perm": "test_construction:batch_delete"
+  },
+  {
+    "perm": "test_construction:batch_add"
+  },
+  {
+    "perm": "test_construction:upload_template"
+  },
+  {
+    "perm": "test_construction:download_template"
+  },
+  {
+    "perm": "eval_supervision:upload_att_jsgl_gxjy"
+  },
+  {
+    "perm": "eval_supervision:upload_att_jsgl_gxjy"
+  },
+  {
+    "perm": "eval_supervision:view"
+  },
+  {
+    "perm": "eval_supervision:add"
+  },
+  {
+    "perm": "eval_supervision:edit"
+  },
+  {
+    "perm": "eval_supervision:delete"
+  },
+  {
+    "perm": "eval_supervision:rename"
+  },
+  {
+    "perm": "eval_supervision:approve"
+  },
+  {
+    "perm": "eval_supervision:sign"
+  },
+  {
+    "perm": "eval_supervision:submit"
+  },
+  {
+    "perm": "eval_supervision:upload_att_jsgl"
+  },
+  {
+    "perm": "eval_supervision:upload_att"
+  },
+  {
+    "perm": "eval_supervision:delete_att"
+  },
+  {
+    "perm": "eval_supervision:download_att"
+  },
+  {
+    "perm": "eval_supervision:application_att"
+  },
+  {
+    "perm": "eval_supervision:batch_approval"
+  },
+  {
+    "perm": "eval_supervision:batch_delete"
+  },
+  {
+    "perm": "eval_supervision:batch_add"
+  },
+  {
+    "perm": "eval_supervision:upload_template"
+  },
+  {
+    "perm": "eval_supervision:download_template"
+  },
+  {
+    "perm": "test_supervision:upload_att_jsgl_gxjy"
+  },
+  {
+    "perm": "test_supervision:upload_att_jsgl_gxjy"
+  },
+  {
+    "perm": "test_supervision:view"
+  },
+  {
+    "perm": "test_supervision:add"
+  },
+  {
+    "perm": "test_supervision:edit"
+  },
+  {
+    "perm": "test_supervision:delete"
+  },
+  {
+    "perm": "test_supervision:rename"
+  },
+  {
+    "perm": "test_supervision:approve"
+  },
+  {
+    "perm": "test_supervision:sign"
+  },
+  {
+    "perm": "test_supervision:submit"
+  },
+  {
+    "perm": "test_supervision:upload_att_jsgl"
+  },
+  {
+    "perm": "test_supervision:upload_att"
+  },
+  {
+    "perm": "test_supervision:delete_att"
+  },
+  {
+    "perm": "test_supervision:download_att"
+  },
+  {
+    "perm": "test_supervision:application_att"
+  },
+  {
+    "perm": "test_supervision:batch_approval"
+  },
+  {
+    "perm": "test_supervision:batch_delete"
+  },
+  {
+    "perm": "test_supervision:batch_add"
+  },
+  {
+    "perm": "test_supervision:upload_template"
+  },
+  {
+    "perm": "test_supervision:download_template"
+  },
+  {
+    "perm": "form:approvalProcess"
+  },
+  {
+    "perm": "form:batchAssociationProcess"
+  },
+  {
+    "perm": "processSettings:newProcess"
+  },
+  {
+    "perm": "processSettings:editProcess"
+  },
+  {
+    "perm": "processSettings:delProcess"
+  },
+  {
+    "perm": "processSettings:copyProcess"
+  },
+  {
+    "perm": "permission_moule"
+  },
+  {
+    "perm": "process_module"
+  }
+]
