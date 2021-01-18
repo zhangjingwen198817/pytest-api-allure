@@ -30,7 +30,7 @@ new_flow = "流程测试" + base_utils.generate_random_str()
 class TestApproveForm:
 
     @allure.story("添加无签名签章审批流程-前置条件")
-    @pytest.mark.skiprest
+    @pytest.mark.TestApproveForm
     def test_flow_setting_deploy(self, gaolu_login, gaolu_login_luban, env_conf):
         new_flow_mark = 'mark_' + new_flow
         new_flow_1 = "流程1_" + base_utils.generate_random_str()
@@ -174,7 +174,7 @@ class TestApproveForm:
             print('关联流程:{0} 到表单: {1} 成功'.format(new_flow, env_conf['用例配置']['表单审批']['单个表单']['父表单']))
 
     @allure.story("单个表单发起-审批-回退至上一步-回退至发起人-删除表单")
-    @pytest.mark.skiprest
+    @pytest.mark.TestApproveForm
     def test_approve_single_form(self, gaolu_login, gaolu_login_luban, gaolu_login_report, env_conf):
         with allure.step("查看标段"):
             section_K = return_section_dict(gaolu_login)
@@ -327,7 +327,7 @@ class TestApproveForm:
             waitForStatus(delete_sheet1, 200, 200, 15)
 
     @allure.story("批量表单发起-审批-回退至上一步-回退至发起人-删除表单")
-    @pytest.mark.skiprest
+    @pytest.mark.TestApproveForm
     def test_approve_batch_form(self, gaolu_login, gaolu_login_luban, gaolu_login_report, env_conf):
         with allure.step("查看标段"):
             section_K = return_section_dict(gaolu_login)
@@ -529,7 +529,7 @@ class TestApproveForm:
             waitForStatus(delete_group_sheet, 200, 200, 15)
 
     @allure.story("表单附件-上传-下载-删除")
-    @pytest.mark.skiprest
+    @pytest.mark.TestApproveForm
     def test_attach_up_download_delete(self, gaolu_login, gaolu_login_luban, gaolu_login_report, env_conf):
         with allure.step("查看标段"):
             section_K = return_section_dict(gaolu_login)
@@ -654,12 +654,12 @@ class TestApproveForm:
             waitForStatus(delete_group_sheet, 200, 200, 15)
 
     @allure.story("工序app-照片应用-照片删除")
-    @pytest.mark.skiprest
+    @pytest.mark.TestApproveForm
     def test_picture_apply_delete(self, gaolu_login, env_conf):
         pass
 
     @allure.story("云检报告-应用-删除")
-    @pytest.mark.skiprest
+    @pytest.mark.TestApproveForm
     def test_cloud_check_report_apply_delete(self, gaolu_login, env_conf):
         pass
 

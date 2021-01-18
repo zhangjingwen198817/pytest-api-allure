@@ -23,7 +23,7 @@ new_template_node3 = "工程划分测试" + base_utils.generate_random_str()
 @allure.feature("检验评定-新增表单")
 class TestInspectionProvisions:
     @allure.story("添加工程模板划分-前置条件")
-    @pytest.mark.skiprest
+    @pytest.mark.TestInspectionProvisions
     def test_add_engineering_template_deploy(self, gaolu_login, gaolu_login_luban, env_conf):
         # 添加工程模板
         with allure.step("查询工程划分目录"):
@@ -113,7 +113,7 @@ class TestInspectionProvisions:
             Assertions.assert_in_value(actual_value, env_conf['用例配置']['增加表单']['应用模板表单'])
 
     @allure.story("新增表单-表单上移下移动-上传模板-应用模板-删除表单")
-    @pytest.mark.skiprest
+    @pytest.mark.TestInspectionProvisions
     def test_new_sheet(self, gaolu_login, gaolu_login_luban, env_conf):
         # 新增表单
         with allure.step("查看标段"):

@@ -444,17 +444,48 @@ def gaolu_login_report(env_conf, global_cache):
     yield GaolLulogin_report
 
 
+# def pytest_sessionstart(session):
+#     session.failednames = set()
+#
+#
+# def pytest_runtest_makereport(item, call):
+#     markers = {marker.name for marker in item.iter_markers()}
+#     if call.excinfo is not None and 'skiprest' in markers:
+#         item.session.failednames.add(item.originalname)
+#
+#
+# def pytest_runtest_setup(item):
+#     markers = {marker.name for marker in item.iter_markers()}
+#     if item.originalname in item.session.failednames and 'skiprest' in markers:
+#         pytest.skip(item.name)
+
+
+skips = ['TestInspectionProvisions', 'TestApproveForm', 'TestInspectionProvisions']
+
+
 def pytest_sessionstart(session):
-    session.failednames = set()
+    session.failedmarkers = []
+    session.failednames = []
 
 
 def pytest_runtest_makereport(item, call):
-    markers = {marker.name for marker in item.iter_markers()}
-    if call.excinfo is not None and 'skiprest' in markers:
-        item.session.failednames.add(item.originalname)
+    if call.excinfo is not None:
+        markers = [marker.name for marker in item.iter_markers()]
+        for s in skips:
+            if s in markers:
+                item.session.failedmarkers.extend(markers)
+                item.session.failedmarkers = list(set(item.session.failedmarkers))
+                item.session.failednames.append(item.name.split('[')[0])
 
 
 def pytest_runtest_setup(item):
-    markers = {marker.name for marker in item.iter_markers()}
-    if item.originalname in item.session.failednames and 'skiprest' in markers:
-        pytest.skip(item.name)
+    markers = [marker.name for marker in item.iter_markers()]
+    if item.name.split('[')[0] in item.session.failednames:
+        for s in skips:
+            if s in markers:
+                pytest.skip(f"previous test failed {item.name}")
+    for marker in markers:
+        if marker in item.session.failedmarkers:
+            for s in skips:
+                if s in markers:
+                    pytest.skip(f"previous test failed {item.name}")

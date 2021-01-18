@@ -144,12 +144,11 @@ new_flow = "流程测试" + base_utils.generate_random_str()
 @allure.feature("检验评定-新增表单")
 class TestInspectionProvisions:
     @allure.story("添加无签名签章审批流程-前置条件")
-    @pytest.mark.skiprest
+    @pytest.mark.TestInspectionProvisions
     def test_flow_setting_home_page_deploy(self, gaolu_login, gaolu_login_luban, env_conf):
         new_flow_mark = 'mark_' + new_flow
         new_flow_1 = "流程1_" + base_utils.generate_random_str()
         new_flow_2 = "流程2_" + base_utils.generate_random_str()
-
         with allure.step('获取roleName'):
             resp = UserInfo().getUserInfoUsingGET(gaolu_login)
             roleName = resp.get('source_response')['data']['roleName']
@@ -288,7 +287,7 @@ class TestInspectionProvisions:
             print('关联流程:{0} 到表单: {1} 成功'.format(new_flow, env_conf['用例配置']['主页']['父表单']))
 
     @allure.story("单个交工评定表单发起-审批-删除表单")
-    @pytest.mark.skiprest
+    @pytest.mark.TestInspectionProvisions
     def test_completion_form(self, gaolu_login, gaolu_login_luban, gaolu_login_report, env_conf):
         with allure.step("查看标段"):
             # section_dict = return_section_dict(gaolu_login, env_conf['用例配置']['主页']['section'])
