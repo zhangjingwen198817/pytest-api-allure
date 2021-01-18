@@ -14,7 +14,6 @@ from swagger.api.inspection.content import Content
 from swagger.api.inspection.inspection_userinfo import UserInfo
 from swagger.api.luban_glxx_user.roleAndRole import Roleandrole
 from utils.common import return_InstanceBody
-from luban_common.base_assert import Assertions
 from swagger.api.inspection.sort import Sort
 from swagger.api.luban_glxx_user.process_template import Process_template
 from luban_common.base_assert import Assertions

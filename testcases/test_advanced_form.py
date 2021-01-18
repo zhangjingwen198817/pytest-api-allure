@@ -10,8 +10,6 @@ from luban_common.base_assert import Assertions
 from luban_common import base_utils
 from swagger.api.luban_glxx_user.data_template import Data_template
 from swagger.api.inspection.form_group import FormGroup
-from swagger.api.inspection.projects import Projects
-from swagger.api.inspection.summery_sections import Sections
 from swagger.api.inspection.formInstances import FormInstances
 from swagger.api.inspection.sort import Sort
 from swagger.api.report.service_template import ServiceTemplate

@@ -4,10 +4,9 @@
 # @Author  :  zhangjingwen
 # @File    :  test_engineering_template.py
 import pytest, allure
-from utils.common import waitForStatus, key_in_listdict, key_not_in_listdict
+from utils.common import waitForStatus
 from luban_common.base_assert import Assertions
 from luban_common import base_utils
-import random
 import pprint
 from swagger.api.luban_glxx_user.project_template import Project_template
 from swagger.api.luban_glxx_user.data_template import Data_template

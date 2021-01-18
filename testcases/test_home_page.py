@@ -3,24 +3,20 @@
 # @TIME    :  2020/12/29
 # @Author  :  zhangjingwen
 # @File    :  test_add_sheet.py
-import pytest, allure, datetime, re, os
+import pytest, allure, datetime, re
 from luban_common import base_utils
 from swagger.api.luban_glxx_user.data_template import Data_template
 from swagger.api.inspection.form_group import FormGroup
-from swagger.api.inspection.formInstances import FormInstances
 from swagger.api.inspection.approval_process import ApprovalProcess
 from swagger.api.report.service_template import ServiceTemplate
 from swagger.api.inspection.content import Content
 from swagger.api.inspection.inspection_userinfo import UserInfo
 from swagger.api.luban_glxx_user.roleAndRole import Roleandrole
 from utils.common import return_section_array, get_section_home_id, return_section_dict, get_data, assemble_dict
-from luban_common.base_assert import Assertions
-from swagger.api.inspection.sort import Sort
 from swagger.api.luban_glxx_user.process_template import Process_template
 from luban_common.base_assert import Assertions
 import random
 from utils.common import waitForStatus, key_in_listdict, key_not_in_listdict
-from swagger.api.inspection.formDelegates import DelegatesForm
 import pprint
 import json
 from swagger.api.inspection.summery_sections import Sections
