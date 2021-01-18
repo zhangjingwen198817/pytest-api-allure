@@ -14,12 +14,27 @@
     addopts =
         --lb-env=Config/release/config.yaml
 
-**配置文件说明:**
+    pytest.ini(测试环境)
+    [pytest]
+    addopts =
+        --lb-env=Config/preRelease/config.yaml
 
-    config/release/config.yaml (这几个key对用的value保持一致，需要重复用到)
+**运行方式：**
 
-      表单关联: "测试表10.4.2 明洞防水层现场质量检验表(JL)"
-      工程模板:
-          dataTemplateItemId1: "测试表10.4.2 明洞防水层现场质量检验表(JL)"
-      增加表单:
-          应用模板表单: "测试表10.4.2 明洞防水层现场质量检验表(JL)"
+    1. 整个文件夹的所有用例都运行
+        pytest testcases
+    2. 指定文件运行：
+        pytest testcases\test_add_sheet.py
+    3. 指定文件下某条用例运行
+        pytest testcases\test_approve_form.py::TestApproveForm::test_flow_setting_deploy
+
+**测试用例运行报告：**
+
+    1. 如果在本地运行测试用例：
+        测试报告存在：reports下，也可以通过(pytest.ini)文件参数修改，如下：
+        addopts =
+         xx
+         xx
+         --html=reports/report.html --self-contained-html
+    2. 如果在CI上运行测试用例：
+        测试报告为aller report格式
