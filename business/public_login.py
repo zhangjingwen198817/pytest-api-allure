@@ -809,7 +809,6 @@ class Gaolu_report:
         Gaolu 登录
         '''
         resource = self.master_url + "/luban-glxx-user/auth/login"
-        print(resource)
         body = {"username": self.username, "password": self.password}
         response = self.GaoluLogin.request('post', resource, body)
         Assertions().assert_equal_value(response["status_code"], 200)
