@@ -4,7 +4,8 @@
 # @Author  :  zhangjingwen
 # @File    :  test_add_sheet.py
 import pytest, allure
-from utils.common import waitForStatus, return_section_dict
+from utils.common import waitForStatus
+from utils.common import return_section_array, get_section_home_id, return_section_dict, get_data, assemble_dict
 from luban_common.base_assert import Assertions
 from luban_common import base_utils
 from swagger.api.luban_glxx_user.project_template import Project_template
@@ -26,7 +27,8 @@ class TestInspectionProvisions:
     def test_add_engineering_template_deploy(self, gaolu_login, gaolu_login_luban, env_conf):
         # 添加工程模板
         with allure.step("查询工程划分目录"):
-            project_tree_resp = Project_template().pageProjectTemplateUsingGET(gaolu_login_luban, pageSize=10000, pageIndex=1)
+            project_tree_resp = Project_template().pageProjectTemplateUsingGET(gaolu_login_luban, pageSize=10000,
+                                                                               pageIndex=1)
             if project_tree_resp.get('data_totalCount')[0] == 0:
                 print("工程划分节点为空")
             else:
@@ -39,7 +41,8 @@ class TestInspectionProvisions:
             creat_node1_resp = Project_template().saveProjectTemplateUsingPOST(gaolu_login_luban, creat_body_node1)
             waitForStatus(creat_node1_resp, 200, 200, 15)
         with allure.step("断言添加工程划分一级节点: {0} 添加成功".format(new_template_node1)):
-            check_tree_resp1 = Project_template().pageProjectTemplateUsingGET(gaolu_login_luban, pageSize=10000, pageIndex=1)
+            check_tree_resp1 = Project_template().pageProjectTemplateUsingGET(gaolu_login_luban, pageSize=10000,
+                                                                              pageIndex=1)
             Assertions.assert_in_value(check_tree_resp1.get('data_result_name'), new_template_node1)
             allure.attach("断言添加工程划分一级节点: {0} 添加成功".format(new_template_node1))
             node_datas = check_tree_resp1.get('source_response')['data']['result']
@@ -54,7 +57,8 @@ class TestInspectionProvisions:
             creat_node2_resp = Project_template().saveProjectTemplateUsingPOST(gaolu_login_luban, creat_body_node2)
             waitForStatus(creat_node2_resp, 200, 200, 15)
         with allure.step("断言添加工程划分二级节点: {0} 添加成功".format(new_template_node2)):
-            check_tree_resp2 = Project_template().pageProjectTemplateUsingGET(gaolu_login_luban, pageSize=10000, pageIndex=1)
+            check_tree_resp2 = Project_template().pageProjectTemplateUsingGET(gaolu_login_luban, pageSize=10000,
+                                                                              pageIndex=1)
             Assertions.assert_in_value(check_tree_resp2.get('data_result_name'), new_template_node2)
             allure.attach("断言添加工程划分二级节点: {0} 添加成功".format(new_template_node2))
             node_datas = check_tree_resp2.get('source_response')['data']['result']
@@ -69,7 +73,8 @@ class TestInspectionProvisions:
             creat_node2_resp = Project_template().saveProjectTemplateUsingPOST(gaolu_login_luban, creat_body_node3)
             waitForStatus(creat_node2_resp, 200, 200, 15)
         with allure.step("断言添加工程划分三级节点: {0} 添加成功".format(new_template_node3)):
-            check_tree_resp2 = Project_template().pageProjectTemplateUsingGET(gaolu_login_luban, pageSize=10000, pageIndex=1)
+            check_tree_resp2 = Project_template().pageProjectTemplateUsingGET(gaolu_login_luban, pageSize=10000,
+                                                                              pageIndex=1)
             Assertions.assert_in_value(check_tree_resp2.get('data_result_name'), new_template_node3)
             allure.attach("断言添加工程划分三级节点: {0} 添加成功".format(new_template_node3))
             node_datas = check_tree_resp2.get('source_response')['data']['result']
@@ -99,7 +104,8 @@ class TestInspectionProvisions:
             waitForStatus(bind_resp, 200, 200, 15)
         with allure.step(
                 "关联表单模板: {0} 到模板: {1} 成功".format(new_template_node3, env_conf['用例配置']['增加表单']['应用模板表单'])):
-            check_table_resp5 = Project_template().pageProjectTemplateUsingGET(gaolu_login_luban, pageSize=10000, pageIndex=1)
+            check_table_resp5 = Project_template().pageProjectTemplateUsingGET(gaolu_login_luban, pageSize=10000,
+                                                                               pageIndex=1)
             actual_value = None
             for data in check_table_resp5.get('source_response')['data']['result']:
                 if data['name'] == new_template_node3:
@@ -111,7 +117,18 @@ class TestInspectionProvisions:
     def test_new_sheet(self, gaolu_login, gaolu_login_luban, env_conf):
         # 新增表单
         with allure.step("查看标段"):
-            section_dict = return_section_dict(gaolu_login, env_conf['用例配置']['增加表单']['section'])
+            # section_dict = return_section_dict(gaolu_login, env_conf['用例配置']['增加表单']['section'])
+            section_K = return_section_dict(gaolu_login)
+            # 获取Kxx 下所有元素
+            section_home_arr = return_section_array(gaolu_login, section_K, env_conf['用例配置']['增加表单']['section'])
+            # 获取3级节点的详细信息
+            pid_1 = get_section_home_id(section_home_arr, env_conf['用例配置']['增加表单']['项目节点'])
+            # 获4级节点的详细信息
+            pid_2 = get_data(section_home_arr, pid_1, env_conf['用例配置']['增加表单']['文件节点'])
+            # 获5级节点的详细信息
+            data_temp = get_data(section_home_arr, pid_2['id'], env_conf['用例配置']['增加表单']['subItem'])
+            # 组装为{"name":"id"}
+            section_dict = assemble_dict(data_temp)
         with allure.step("获取资料模板条目列表"):
             resp_temp = Data_template().pageDataTemplateItemUsingGET(gaolu_login_luban, page_size=10000, page_index=1)
             for data in resp_temp.get('source_response')['data']['result']:

@@ -4,7 +4,8 @@
 # @Author  :  zhangjingwen
 # @File    :  test_advanced_form
 import pytest, allure
-from utils.common import waitForStatus, return_InstanceBody
+from utils.common import waitForStatus, return_InstanceBody, return_section_array, get_section_home_id, \
+    return_section_dict, get_data, assemble_dict
 from luban_common.base_assert import Assertions
 from luban_common import base_utils
 from swagger.api.luban_glxx_user.data_template import Data_template
@@ -24,22 +25,17 @@ class TestAdvancedForm:
     @allure.story("表单编辑-表单保存")
     def test_advance_form(self, gaolu_login, gaolu_login_luban, gaolu_login_report, env_conf):
         with allure.step("查看标段"):
-            resp_id = Projects().projectsGET(gaolu_login)
-            project_id = resp_id.get('data__embedded_projectModels_id')
-            body = {"projectId": project_id}
-            resp = Sections().sectionsGET(gaolu_login, body)
-            biaoduan_resp = resp.get('source_response')['data']['_embedded']['sectionModels']
-            biaoduan_dict = {}
-            for data in biaoduan_resp:
-                biaoduan_dict[data['name']] = data['id']
-            body = {
-                "sectionId": biaoduan_dict[env_conf['用例配置']['高级表单']['section']],
-            }
-            resp = Sections().searchAll(gaolu_login, body)
-            unit_datas = resp.get('source_response')['data']['_embedded']['projectNodeModels']
-            section_dict = {}
-            for data in unit_datas:
-                section_dict[data['name']] = data['id']
+            section_K = return_section_dict(gaolu_login)
+            # 获取Kxx 下所有元素
+            section_home_arr = return_section_array(gaolu_login, section_K, env_conf['用例配置']['高级表单']['section'])
+            # 获取3级节点的详细信息
+            pid_1 = get_section_home_id(section_home_arr, env_conf['用例配置']['高级表单']['项目节点'])
+            # 获4级节点的详细信息
+            pid_2 = get_data(section_home_arr, pid_1, env_conf['用例配置']['高级表单']['文件节点'])
+            # 获5级节点的详细信息
+            data_temp = get_data(section_home_arr, pid_2['id'], env_conf['用例配置']['高级表单']['subItem'])
+            # 组装为{"name":"id"}
+            section_dict = assemble_dict(data_temp)
         with allure.step("获取资料模板条目列表"):
             resp_temp = Data_template().pageDataTemplateItemUsingGET(gaolu_login_luban, page_size=10000, page_index=1)
             for data in resp_temp.get('source_response')['data']['result']:

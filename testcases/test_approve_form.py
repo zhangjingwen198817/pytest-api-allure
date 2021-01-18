@@ -13,7 +13,7 @@ from swagger.api.report.service_template import ServiceTemplate
 from swagger.api.inspection.content import Content
 from swagger.api.inspection.inspection_userinfo import UserInfo
 from swagger.api.luban_glxx_user.roleAndRole import Roleandrole
-from utils.common import return_section_dict, return_TemplateName_Id, return_InstanceBody
+from utils.common import return_InstanceBody
 from luban_common.base_assert import Assertions
 from swagger.api.inspection.sort import Sort
 from swagger.api.luban_glxx_user.process_template import Process_template
@@ -22,6 +22,7 @@ import random
 from utils.common import waitForStatus, key_in_listdict, key_not_in_listdict
 from swagger.api.inspection.formDelegates import DelegatesForm
 import pprint
+from utils.common import return_section_array, get_section_home_id, return_section_dict, get_data, assemble_dict
 
 new_flow = "流程测试" + base_utils.generate_random_str()
 
@@ -177,7 +178,17 @@ class TestApproveForm:
     @pytest.mark.skiprest
     def test_approve_single_form(self, gaolu_login, gaolu_login_luban, gaolu_login_report, env_conf):
         with allure.step("查看标段"):
-            section_dict = return_section_dict(gaolu_login, env_conf['用例配置']['表单审批']['单个表单']['section'])
+            section_K = return_section_dict(gaolu_login)
+            # 获取Kxx 下所有元素
+            section_home_arr = return_section_array(gaolu_login, section_K, env_conf['用例配置']['表单审批']['单个表单']['section'])
+            # 获取3级节点的详细信息
+            pid_1 = get_section_home_id(section_home_arr, env_conf['用例配置']['表单审批']['单个表单']['项目节点'])
+            # 获4级节点的详细信息
+            pid_2 = get_data(section_home_arr, pid_1, env_conf['用例配置']['表单审批']['单个表单']['文件节点'])
+            # 获5级节点的详细信息
+            data_temp = get_data(section_home_arr, pid_2['id'], env_conf['用例配置']['表单审批']['单个表单']['subItem'])
+            # 组装为{"name":"id"}
+            section_dict = assemble_dict(data_temp)
         with allure.step("获取资料模板条目列表"):
             resp_temp = Data_template().pageDataTemplateItemUsingGET(gaolu_login_luban, page_size=10000, page_index=1)
             for data in resp_temp.get('source_response')['data']['result']:
@@ -320,7 +331,17 @@ class TestApproveForm:
     @pytest.mark.skiprest
     def test_approve_batch_form(self, gaolu_login, gaolu_login_luban, gaolu_login_report, env_conf):
         with allure.step("查看标段"):
-            section_dict = return_section_dict(gaolu_login, env_conf['用例配置']['表单审批']['批量表单']['section'])
+            section_K = return_section_dict(gaolu_login)
+            # 获取Kxx 下所有元素
+            section_home_arr = return_section_array(gaolu_login, section_K, env_conf['用例配置']['表单审批']['批量表单']['section'])
+            # 获取3级节点的详细信息
+            pid_1 = get_section_home_id(section_home_arr, env_conf['用例配置']['表单审批']['批量表单']['项目节点'])
+            # 获4级节点的详细信息
+            pid_2 = get_data(section_home_arr, pid_1, env_conf['用例配置']['表单审批']['批量表单']['文件节点'])
+            # 获5级节点的详细信息
+            data_temp = get_data(section_home_arr, pid_2['id'], env_conf['用例配置']['表单审批']['批量表单']['subItem'])
+            # 组装为{"name":"id"}
+            section_dict = assemble_dict(data_temp)
         with allure.step("获取资料模板条目列表"):
             resp_temp = Data_template().pageDataTemplateItemUsingGET(gaolu_login_luban, page_size=10000, page_index=1)
             for data in resp_temp.get('source_response')['data']['result']:
@@ -512,7 +533,17 @@ class TestApproveForm:
     @pytest.mark.skiprest
     def test_attach_up_download_delete(self, gaolu_login, gaolu_login_luban, gaolu_login_report, env_conf):
         with allure.step("查看标段"):
-            section_dict = return_section_dict(gaolu_login, env_conf['用例配置']['表单审批']['表单附件']['section'])
+            section_K = return_section_dict(gaolu_login)
+            # 获取Kxx 下所有元素
+            section_home_arr = return_section_array(gaolu_login, section_K, env_conf['用例配置']['表单审批']['表单附件']['section'])
+            # 获取3级节点的详细信息
+            pid_1 = get_section_home_id(section_home_arr, env_conf['用例配置']['表单审批']['表单附件']['项目节点'])
+            # 获4级节点的详细信息
+            pid_2 = get_data(section_home_arr, pid_1, env_conf['用例配置']['表单审批']['表单附件']['文件节点'])
+            # 获5级节点的详细信息
+            data_temp = get_data(section_home_arr, pid_2['id'], env_conf['用例配置']['表单审批']['表单附件']['subItem'])
+            # 组装为{"name":"id"}
+            section_dict = assemble_dict(data_temp)
         with allure.step("获取资料模板条目列表"):
             resp_temp = Data_template().pageDataTemplateItemUsingGET(gaolu_login_luban, page_size=10000, page_index=1)
             for data in resp_temp.get('source_response')['data']['result']:
