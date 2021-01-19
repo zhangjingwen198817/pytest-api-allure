@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # @TIME    :  2021/1/18
 # @Author  :  zhangjingwen
-# @File    :  authority_management.py
+# @File    :  test_authority_management.py
 import pytest, allure
 from swagger.api.luban_glxx_user.permission import Permission
 import jsonpath, copy
@@ -53,4 +53,4 @@ class TestAuthorityManagement:
 
 
 if __name__ == '__main__':
-    pytest.main(["-s", "authority_management.py"])
+    pytest.main(["-s", "test_authority_management.py"])
