@@ -19,7 +19,7 @@ class TestAuthorityManagement:
                                                      rolename=env_conf['用例配置']['权限管理']['角色名称'], page_index=1)
             role_id = None
             for data in resp.get('source_response')['data']['result']:
-                if data['rolename'] == '乐西管理员':
+                if data['rolename'] == env_conf['用例配置']['权限管理']['角色名称']:
                     role_id = data['id']
         with allure.step('查询权限列表接口'):
             # 查看接口是否可用
